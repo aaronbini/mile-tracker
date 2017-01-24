@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,600,600i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+* {
+  font-family: 'Josefin Sans', 'Source Sans Pro', Helvetica, Arial, sans-serif;
+}
+
+body {
+    font-family: inherit;
+    color: inherit;
+    background-color: inherit;
+}
+
+md-dialog-content {
+  padding: 10px;
+}
+
+md-input-container .md-input-message-animation {
+  font-size: 15px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0px 9999px rgb(167,255,235);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2.441em;
+}
+
+h2 {
+  font-size: 1.953em;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.563em;
+  margin: 0;
+}
+
+h4 {
+  font-size: 1.25em;
+  margin: 0;
+}
+
+h5 {
+  font-size: 1em;
+  margin: 0;
+}
+
+h6 {
+  font-size: .8em;
+}
+
+
+p {
+  font-size: 1.25em;
+  font-weight: 200;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: auto;
+  width: 100%;
+  padding: 1em;
+  color: black;
+  text-align: center;
+  margin-top: 10px;
+}
+
+footer a {
+  color: black;
+}
+
+footer a:hover {
+  color: rgba(255, 110, 64, 0.87);
+}
+
+span {
+  // color: black;
+}
+
+ h3 span {
+  color: rgba(255,110,64,0.87);
+  font-weight: bold;
+}
+
+.full-height {
+  height: 100%;
+  margin-bottom: 75px;
+}
+
+.flex-container-column {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.flex-container-row {
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.canvasContain {
+  width: 50%;
+  height: 100%;
+  padding: calc((100% - 1500px)/6.1);
+  display: inline-block;
+}
+
+.md-button.md-icon-button {
+  width: auto;
+  display: inline-block;
+  border-radius: 0;
+}
+
+.error {
+  border: 2px solid darkred;
+  border-radius: 15px;
+  opacity: 0.6;
+  background-color: red;
+  width: 75%;
+  height: 25px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 240px;
+  max-width: 475px;
+}
+
+.error h3 {
+  color: white;
+}
+
+.md-calendar.md-default-theme, .md-calendar {
+  color: black;
+}
+
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .canvasContain {
+    width: 90%;
+  }
+}
