@@ -1,0 +1,30 @@
+
+    <header></header>
+    <ui-view>
+      <div layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate" value="0" md-diameter="50"></md-progress-circular>
+          LOADING
+      </div>
+      <h1 class="load-header">EE Time Tracker</h1>
+    </ui-view>
+  </div>
+  
+
+<md-content>
+  <div class="full-height">
+    <header>
+        <app-header>
+            <ui-view name="header"></ui-view>
+        </app-header>
+    </header>
+
+    <main>
+        <ui-view name="main"></ui-view>
+    </main>
+    <footer class="">
+      <!--<img src="http://images.ethicalsuperstore.com/images/resize200/equalex-wide-logo.jpg" alt="">-->
+      <img src="http://shop.equalexchange.coop/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/w/a/waterproof-logo-sticker.jpg" alt="">
+      <h5>&copy; EE Time Tracker</h5>
+      <a href="https://github.com/aaronbini/time-tracker"><h5>Github</h5></a>
+    </footer>
+  </md-content>
