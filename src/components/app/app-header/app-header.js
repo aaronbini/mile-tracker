@@ -7,10 +7,17 @@ export default {
   controller
 };
 
-controller.$inject = ['userService'];
+controller.$inject = ['userService', '$state'];
 
-function controller(userService) {
+function controller(userService, $state) {
   this.styles = styles;
-  this.logout = () => userService.logout();
+  this.logout = () => {
+    //could remove airports here, but might prefer to leave it since
+    //this get request is extremely slow
+    // $window.localStorage.removeItem('airports');
+    userService.logout();
+    $state.go('welcome');
+  };
   this.isAuthenticated = () => userService.isAuthenticated();
+  this.isAdmin = () => userService.isAdmin();
 }

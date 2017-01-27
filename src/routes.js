@@ -14,13 +14,13 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
-    name: 'newRoundTrip',
+    name: 'newTrip',
     url: '/newTrip',
     params: {
       airports: null
     },
     resolve: {
-      airports: ['flightService', flight => flight.getAll()]
+      airports: ['flightService', flight => flight.getAll()],
     },
     views: {
       header: {
@@ -33,58 +33,79 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
-    name: 'gallery',
-    url: '/albums',
-    params: {
-      selected: { dynamic: true }
-    },
-    resolve: {
-      albums: ['albumService', Album => Album.query().$promise],
-      selected: ['$transition$', t => t.params().id]
-    },
-    component: 'albums',
+    name: 'dashboard',
+    url: '/dashboard',
     views: {
       header: {
-        component: 'albumsHeader'
+        component: 'dashboardHeader'
       },
       main: {
-        component: 'albums' 
+        component: 'dashboard'
       }
     }
   });
 
-  $stateProvider.state({
-    name: 'gallery.album',
-    url: '/{id}',
-    abstract: true,
-    default: '.thumbnail',
-    resolve: {
-      id: ['$transition$', t => t.params().id],
-      album: ['albumService', '$transition$', (Album, t) => {
-        return Album.get({ id: t.params().id }).$promise;
-      }],
-      // make images available to viewer components
-      images: ['album', a => a.images]
-    },
-    component: 'album' 
-  });
+  // $stateProvider.state({
+  //   name: 'gallery',
+  //   url: '/albums',
+  //   params: {
+  //     selected: { dynamic: true }
+  //   },
+  //   resolve: {
+  //     albums: ['albumService', Album => Album.query().$promise],
+  //     selected: ['$transition$', t => t.params().id]
+  //   },
+  //   component: 'albums',
+  //   views: {
+  //     header: {
+  //       component: 'albumsHeader'
+  //     },
+  //     main: {
+  //       component: 'albums' 
+  //     }
+  //   }
+  // });
 
-  $stateProvider.state({
-    name: 'gallery.album.detail',
-    url: '/detail',
-    component: 'detailView'
-  });
+  // $stateProvider.state({
+  //   name: 'gallery.album',
+  //   url: '/{id}',
+  //   abstract: true,
+  //   default: '.thumbnail',
+  //   resolve: {
+  //     id: ['$transition$', t => t.params().id],
+  //     album: ['albumService', '$transition$', (Album, t) => {
+  //       return Album.get({ id: t.params().id }).$promise;
+  //     }],
+  //     // make images available to viewer components
+  //     images: ['album', a => a.images]
+  //   },
+  //   component: 'album' 
+  // });
 
-  $stateProvider.state({
-    name: 'gallery.album.thumbnail',
-    url: '/thumbnail',
-    component: 'thumbnailView'
-  });
+  // $stateProvider.state({
+  //   name: 'gallery.album.detail',
+  //   url: '/detail',
+  //   component: 'detailView'
+  // });
+
+  // $stateProvider.state({
+  //   name: 'gallery.album.thumbnail',
+  //   url: '/thumbnail',
+  //   component: 'thumbnailView'
+  // });
 
   $stateProvider.state({
     name: 'admin',
     url: '/admin',
-    component: 'admin'
+    data: { admin: true },
+    views: {
+      header: {
+        component: 'dashboardHeader'
+      },
+      main: {
+        component: 'admin'
+      }
+    }
   });
 
   $urlRouterProvider.otherwise('/');

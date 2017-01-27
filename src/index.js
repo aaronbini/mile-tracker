@@ -13,4 +13,10 @@ app.config(http);
 app.config(routes);
 app.run(auth);
 
+// if we wanted to turn on caching across the board...
+// (only applies to gets)
+// app.config( [ '$httpProvider', function( $httpProvider ) {
+//     $httpProvider.defaults.config = true;
+// }]);
+
 angular.bootstrap(document, [app.name]);

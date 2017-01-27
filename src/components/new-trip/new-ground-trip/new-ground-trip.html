@@ -1,0 +1,48 @@
+<h2 style="margin-top: 10px; text-align: center;">Trip By Ground</h2>
+<form name="tripLeg" ng-submit="tripLeg.$valid && $ctrl.submitTrips()" layout="column">
+  <md-button ng-click="$ctrl.addTripLeg()">Add Trip Leg</md-button>
+  <div ng-repeat="trip in $ctrl.trips track by $index" class="flex-container-row flex-center">
+    <div class="flex-container-row">
+      <md-input-container>
+        <input name="fromCity" required placeholder="Departure City:" type="text" ng-model="trip.fromCity">
+        <div ng-messages="tripLeg.fromCity.$error" role="alert">
+          <div ng-message="required">A departure city is required.</div>
+        </div>
+      </md-input-container>
+
+      <md-input-container>
+        <md-select ng-model="trip.fromState" placeholder="Select ">
+          <md-option ng-value="state" ng-repeat="state in $ctrl.states">{{ state }}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <div class="flex-container-row">
+      <md-input-container>
+        <input name="to" required placeholder="Destination City:" type="text" ng-model="trip.toCity">
+        <div ng-messages="tripLeg.toCity.$error" role="alert">
+          <div ng-message="required">A destination city is required.</div>
+        </div>
+      </md-input-container>
+
+        <md-input-container>
+          <md-select ng-model="trip.toState" placeholder="Select ">
+            <md-option ng-value="state" ng-repeat="state in $ctrl.states">{{ state }}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    
+    <md-button ng-click="$ctrl.removeTripLeg(trip, $index)">Remove Trip Leg</md-button>
+  </div>
+
+  <md-dialog-actions>
+    <md-button type="submit">Submit Trip</md-button>
+  </md-dialog-actions>
+
+  <md-dialog-actions>
+    <md-button ng-click="$ctrl.cancel()">Cancel</md-button>
+  </md-dialog-actions>
+
+</form>
+
+<div>{{$ctrl.tripMiles}}</div>
