@@ -1,4 +1,4 @@
-userService.$inject = ['$http', 'apiUrl'];
+distanceService.$inject = ['$http', 'apiUrl'];
 
 export default function distanceService ($http, apiUrl) {
 
@@ -10,7 +10,7 @@ export default function distanceService ($http, apiUrl) {
   }
 
   function getDistance (start, end) {
-    return $http.get(`${apiUrl}/airports/distance?start=${start}&end=${end}`)
+    return $http.get(`${apiUrl}/groundTrips?from=${start}&to=${end}`)
       .then(response => response.data);
   }
 

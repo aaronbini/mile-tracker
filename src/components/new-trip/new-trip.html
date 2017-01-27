@@ -1,2 +1,29 @@
-<new-round-trip airports="$ctrl.airports"></new-round-trip>
-<destination-movements></destination-movements>
+<md-content layout-padding>
+  <div ng-class="$ctrl.styles.new">
+    <div layout-gt-xs="row">
+      <div flex-gt-xs>
+        <h4>From:</h4>
+        <md-datepicker ng-model="fromDate" md-placeholder="Enter date"></md-datepicker>
+      </div>
+
+      <div flex-gt-xs>
+        <h4>To:</h4>
+        <md-datepicker ng-model="toDate" md-placeholder="Enter date"></md-datepicker>
+      </div>
+    </div>
+    <md-radio-group ng-model="$ctrl.mode" class="flex-container-row">
+      <md-radio-button ng-repeat="mode in $ctrl.options" ng-value="mode" aria-label="{{mode}}">
+        {{mode}}
+      </md-radio-button>
+    </md-radio-group>
+    <md-radio-group ng-if="$ctrl.mode === 'Ground'" ng-model="$ctrl.groundMode" class="flex-container-row">
+      <md-radio-button ng-repeat="mode in $ctrl.groundOptions" ng-value="mode" aria-label="{{mode}}">
+        {{mode}}
+      </md-radio-button>
+    </md-radio-group>
+    <new-ground-trip ng-if="$ctrl.mode === 'Ground'"></new-ground-trip>
+    <new-round-trip ng-if="$ctrl.mode === 'Air' && $ctrl.airports" airports="$ctrl.airports"></new-round-trip>
+    <md-divider></md-divider>
+    <destination-movements></destination-movements>
+  </div>
+</md-content>

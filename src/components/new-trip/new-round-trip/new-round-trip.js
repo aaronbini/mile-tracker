@@ -6,80 +6,74 @@ export default {
     airports: '<'
   },
   controller
-}
+};
 
-controller.$inject = [];
-function controller ($timeout, $q, $log) {
- 
-  // list of `state` value/display objects
-  self.states        = loadAll();
-  self.querySearch   = querySearch;
-  self.selectedItemChange = selectedItemChange;
-  self.searchTextChange   = searchTextChange;
-
-  self.newState = newState;
-
-  function newState(state) {
-    alert("Sorry! You'll need to create a Constitution for " + state + " first!");
-  }
-
-  // ******************************
-  // Internal methods
-  // ******************************
-
-  /**
-   * Search for states... use $timeout to simulate
-   * remote dataservice call.
-   */
-  function querySearch (query) {
-    var results = query ? self.states.filter( createFilterFor(query) ) : self.states,
-        deferred;
-    if (self.simulateQuery) {
-      deferred = $q.defer();
-      $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-      return deferred.promise;
-    } else {
-      return results;
-    }
-  }
-
-  function searchTextChange(text) {
-    $log.info('Text changed to ' + text);
-  }
-
-  function selectedItemChange(item) {
-    $log.info('Item changed to ' + JSON.stringify(item));
-  }
-
-  /**
-   * Build `states` list of key/value pairs
-   */
-  function loadAll() {
-    var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-            Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-            Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-            Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-            North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-            South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-            Wisconsin, Wyoming';
-
-    return allStates.split(/, +/g).map( function (state) {
-      return {
-        value: state.toLowerCase(),
-        display: state
-      };
+// controller.$inject = ['distanceService', 'flightService', 'tripService'];
+controller.$inject = ['flightService'];
+function controller (flightService) {
+  
+  this.$onInit = () => {
+    //add display property for displaying in dropdown
+    this.airports = this.airports.map(airport => {
+      airport.display = `(${airport.code}) ${airport.name}, ${airport.country}`;
+      return airport;
     });
-  }
+  };
+  
+  //might not be necessary 
+  this.resetFlights = () => {
+    this.newFlights = [{from: null, to: null, searchFrom: '', searchTo: ''}];
+  };
 
-  /**
-   * Create filter function for a query string
-   */
+  this.resetFlights();
+
+  this.addNewFlight = () => {
+    this.newFlights.unshift({from: null, to: null, searchFrom: '', searchTo: ''});
+  };
+
+  this.removeFlight = (flight, index) => {
+    this.newFlights = [
+      ...this.newFlights.slice(0, index),
+      ...this.newFlights.slice(index + 1)  
+    ];
+  };
+
+  //gives the form info to add a new company
+  this.submitFlights = () => {
+    console.log(this.newFlights);
+    let flightPromises = this.newFlights.map(flight => {
+      return flightService.getDistance(flight.from.code, flight.to.code);
+    });
+    Promise.all(flightPromises)
+      .then(array => {
+        this.flightMiles = array.reduce((total, trip) => {
+          trip.distance = flightService.cleanDistance(trip.distance);
+          return total + parseInt(trip.distance, 10);
+        }, 0);
+      })
+      .catch(err => console.log(err));
+    this.resetFlights();
+  };
+
+  //search for airport
+  this.querySearch = (query) => {
+    let results = query ? this.airports.filter( createFilterFor(query) ) : this.airports;
+    return results;
+  };
+
   function createFilterFor(query) {
-    var lowercaseQuery = angular.lowercase(query);
+    const lowercaseQuery = angular.lowercase(query);
 
-    return function filterFn(state) {
-      return (state.value.indexOf(lowercaseQuery) === 0);
+    return function filterFn(airport) {
+      const lowercaseCode = angular.lowercase(airport.code) || '';
+      const lowercaseAirport = angular.lowercase(airport.name) || '';
+      const lowercaseCity = angular.lowercase(airport.city) || '';
+      if (lowercaseCode.indexOf(lowercaseQuery) === 0 || 
+          lowercaseAirport.indexOf(lowercaseQuery) === 0 ||
+          lowercaseCity.indexOf(lowercaseQuery) === 0) {
+        return true;
+      } else { return false; };
     };
-
   }
-}
+
+};
