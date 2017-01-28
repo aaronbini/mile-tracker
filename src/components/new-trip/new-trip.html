@@ -1,17 +1,14 @@
 <md-content layout-padding>
   <div ng-class="$ctrl.styles.new">
-    <div layout-gt-xs="row">
-      <div flex-gt-xs>
-        <h4>From:</h4>
-        <md-datepicker ng-model="fromDate" md-placeholder="Enter date"></md-datepicker>
-      </div>
-
-      <div flex-gt-xs>
-        <h4>To:</h4>
-        <md-datepicker ng-model="toDate" md-placeholder="Enter date"></md-datepicker>
-      </div>
+    
+    <h3 class="center-header" style="margin-top: 20px">Select your departure and return dates: </h3>
+    <div layout-gt-xs="row" layout-align-gt-xs="space-around center">
+        <md-datepicker ng-model="$ctrl.totalTrip.startDate" md-placeholder="Departure Date"></md-datepicker>
+        <md-datepicker ng-model="$ctrl.totalTrip.endDate" md-placeholder="Return Date"></md-datepicker>
     </div>
-    <md-radio-group ng-model="$ctrl.mode" class="flex-container-row">
+
+    <h3 class="center-header">Select your mode of transportation to your destination city:</h3>
+    <md-radio-group ng-model="$ctrl.mode" layout="row" layout-align="center">
       <md-radio-button ng-repeat="mode in $ctrl.options" ng-value="mode" aria-label="{{mode}}">
         {{mode}}
       </md-radio-button>
@@ -21,9 +18,20 @@
         {{mode}}
       </md-radio-button>
     </md-radio-group>
-    <new-ground-trip ng-if="$ctrl.mode === 'Ground'"></new-ground-trip>
-    <new-round-trip ng-if="$ctrl.mode === 'Air' && $ctrl.airports" airports="$ctrl.airports"></new-round-trip>
+
+    <new-ground-trip 
+      ng-if="$ctrl.mode === 'Ground'" 
+      total-trip="$ctrl.totalTrip"> 
+    </new-ground-trip>
+    <new-round-trip 
+      ng-if="$ctrl.mode === 'Air' && $ctrl.airports" 
+      airports="$ctrl.airports" 
+      total-trip="$ctrl.totalTrip"> 
+    </new-round-trip>
     <md-divider></md-divider>
-    <destination-movements></destination-movements>
+    <destination-movements
+      total-trip="$ctrl.totalTrip"> 
+    </destination-movements>
   </div>
+  <md-button class="md-raised md-accent">Log This Trip</md-button>
 </md-content>

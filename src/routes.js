@@ -35,6 +35,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'dashboard',
     url: '/dashboard',
+    resolve: {
+      trips: ['tripService', t => t.getMyTrips()]
+    },
     views: {
       header: {
         component: 'dashboardHeader'

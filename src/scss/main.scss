@@ -96,7 +96,8 @@ main {
 }
 
 md-radio-group {
-  margin-top: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 md-radio-button {
@@ -107,10 +108,21 @@ md-radio-button {
   }
 }
 
+md-autocomplete {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 md-divider {
   width: 98%;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.center-header {
+  text-align: center; 
+  margin-bottom: 15px;
+  margin-top: 45px;
 }
 
 .md-button {
@@ -160,11 +172,19 @@ md-divider {
   display: inline-block;
 }
 
-.md-button.md-icon-button {
-  width: auto;
-  display: inline-block;
-  border-radius: 0;
-}
+// .md-button.md-icon-button {
+//   width: auto;
+//   display: inline-block;
+//   border-radius: 0;
+// }
+
+// .md-date-picker.md-virtual-repeat-scroller {
+//   color: black;
+// }
+
+// .md-calendar.md-default-theme, .md-calendar {
+//   color: black;
+// }
 
 .error {
   border: 2px solid darkred;

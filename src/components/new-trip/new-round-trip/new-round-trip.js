@@ -3,7 +3,8 @@ import template from './new-round-trip.html';
 export default {
   template,
   bindings: {
-    airports: '<'
+    airports: '<',
+    totalTrip: '<'
   },
   controller
 };
@@ -23,6 +24,7 @@ function controller (flightService) {
   //might not be necessary 
   this.resetFlights = () => {
     this.newFlights = [{from: null, to: null, searchFrom: '', searchTo: ''}];
+    console.log('flights have been reset: ', this.newFlights);
   };
 
   this.resetFlights();
@@ -47,12 +49,17 @@ function controller (flightService) {
     Promise.all(flightPromises)
       .then(array => {
         this.flightMiles = array.reduce((total, trip) => {
+          let movement = {mode: 'air', distance: trip.distance};
+          //need to attach mode and distance
+          this.totalTrip.movements.push(movement);
           trip.distance = flightService.cleanDistance(trip.distance);
           return total + parseInt(trip.distance, 10);
         }, 0);
+        this.resetFlights();
+        console.log('this.totalTrip: ', this.totalTrip);
       })
       .catch(err => console.log(err));
-    this.resetFlights();
+    
   };
 
   //search for airport

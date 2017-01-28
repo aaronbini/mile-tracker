@@ -1,6 +1,6 @@
 <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-  <md-nav-item ng-if="$ctrl.isAuthenticated" md-nav-click="$ctrl.navClick('dashboard')" name="dashboard">Dashboard</md-nav-item>
-  <md-nav-item ng-if="$ctrl.isAuthenticated" md-nav-click="$ctrl.navClick('newTrip')" name="newTrip">Add Trip</a></md-nav-item>
-  <md-nav-item ng-if="$ctrl.isAdmin" md-nav-click="$ctrl.navClick('admin')" name="admin">Admin</a></md-nav-item>
+  <md-nav-item ng-if="$ctrl.isAuthenticated" md-nav-sref="dashboard" name="dashboard">Dashboard</md-nav-item>
+  <md-nav-item ng-if="$ctrl.isAuthenticated" md-nav-sref="newTrip" name="newTrip">Add Trip</a></md-nav-item>
+  <md-nav-item ng-if="$ctrl.isAdmin" md-nav-sref="admin" name="admin">Admin</a></md-nav-item>
   <md-nav-item ng-if="$ctrl.isAuthenticated" md-nav-click="$ctrl.logout()" name="logout">Log Out</md-nav-item>
 </md-nav-bar>
