@@ -17,7 +17,8 @@
     "angular-material": "^1.1.1",
     "angular-messages": "^1.5.9",
     "angular-ui-router": "^1.0.0-beta.3",
-    "camelcase": "^4.0.0"
+    "camelcase": "^4.0.0",
+    "chart.js": "^2.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.20.0",

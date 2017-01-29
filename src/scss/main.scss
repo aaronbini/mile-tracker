@@ -59,8 +59,11 @@ h6 {
 
 
 p {
-  font-size: 1.25em;
+  font-size: 1.35em;
   font-weight: 200;
+  margin: 25px;
+  line-height: 1.5;
+  text-align: center;
 }
 
 footer {
@@ -108,11 +111,6 @@ md-radio-button {
   }
 }
 
-// md-autocomplete {
-//   margin-left: 10px;
-//   margin-right: 10px;
-// }
-
 md-divider {
   width: 98%;
   margin-top: 20px;
@@ -121,6 +119,11 @@ md-divider {
 
 md-checkbox span {
   font-size: 1.25 em;
+}
+
+.checkbox-text {
+  margin-bottom: 16px;
+  margin-right: 5px;
 }
 
 .card-background {

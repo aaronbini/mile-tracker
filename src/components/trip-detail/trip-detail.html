@@ -1,0 +1,12 @@
+<md-card class="card-background">
+  <h3>{{$ctrl.trip.departure}} to {{$ctrl.trip.destination}}</a>from {{$ctrl.trip.startDate | date: 'shortDate'}} to {{$ctrl.trip.endDate | date: 'shortDate'}}</h3>
+  <md-list flex>
+    <md-list-item class="md-3-line">
+      <div class="md-list-item-text" layout="column">
+        <h3></h3>
+        <h4>{{ item.what }}</h4>
+        <p>{{ item.notes }}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-card>

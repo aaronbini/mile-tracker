@@ -1,4 +1,6 @@
 <h2>dashboard</h2>
-  <md-button class="md-raised md-accent">Add Another Flight</md-button>
+<div ng-repeat="trip in $ctrl.trips">
+  <span><a ui-sref="dashboard.tripDetail({id: trip._id})">{{trip.departure}} to {{trip.destination}}</a>from {{trip.startDate | date: 'shortDate'}} to {{trip.endDate | date: 'shortDate'}}</span>
+</div>
 
-  <md-button class="md-raised md-accent">Add Another Flight</md-button>
+<ui-view></ui-view>

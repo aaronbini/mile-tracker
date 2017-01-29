@@ -13,6 +13,11 @@ export default function tripService($http, apiUrl) {
       .then(result = result.data);
   }
 
+  function getOneTrip (id) {
+    return $http.get(`${apiUrl}/trips/byTrip/${id}`)
+      .then(result => result.data);
+  }
+
   //mongoose model for trip has departure, destination, startDate, endDate, user
   //this routes expects a "movements" array to be attached to the body, which
   //will contain all of the trips associated with the totalTrip, each of these requires
@@ -24,6 +29,7 @@ export default function tripService($http, apiUrl) {
 
   return {
     getMyTrips,
+    getOneTrip,
     getAllTrips,
     addTrip
   };

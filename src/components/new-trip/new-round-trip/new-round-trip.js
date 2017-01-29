@@ -42,19 +42,17 @@ function controller (flightService, $state) {
   this.submitFlights = () => {
     console.log('new flights: ', this.newFlights);
     let flightPromises = this.newFlights.map(flight => {
+      //attach departure and destination cities to totalTrip
+      if (flight.departure) {
+        this.totalTrip.departure = flight.from.city;
+      }
+      if (flight.destination) {
+        this.totalTrip.destination = flight.to.city;
+      }
       return flightService.getDistance(flight.from.code, flight.to.code);
     });
     Promise.all(flightPromises)
       .then(array => {
-        //attach departure and destination cities to totalTrip
-        array.forEach(flight => {
-          if (flight.departure) {
-            this.totalTrip.departure = flight.from.city;
-          }
-          if (flight.destination) {
-            this.totalTrip.departure = flight.to.city;
-          }
-        });
         //need to attach mode and distance to each movement,
         //and add each movement to totalTrip
         array.forEach(flight => {
@@ -69,7 +67,7 @@ function controller (flightService, $state) {
         //attach totalMiles to totalTrip
         this.totalTrip.totalMiles = totalMiles;
 
-        $state.go('movements', {totalTrip: this.totalTrip});
+        $state.go('tripLegs', {totalTrip: this.totalTrip});
       })
       .catch(err => console.log(err));
     

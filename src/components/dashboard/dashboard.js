@@ -13,4 +13,5 @@ function controller () {
   this.$onInit = () => {
     console.log('trips: ', this.trips);
   };
+  
 }

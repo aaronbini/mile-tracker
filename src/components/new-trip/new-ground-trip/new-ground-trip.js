@@ -39,8 +39,12 @@ function controller (distanceService, $state) {
   };
 
   //submit ground trips
+  //TODO: change to single ground trip
   this.submitTrips = () => {
     let tripQueries = this.trips.map(trip => {
+      //set the departure and destination cities
+      this.totalTrip.departure = trip.fromCity;
+      this.totalTrip.destination = trip.toCity;
       return {from: `${trip.fromCity}+${trip.fromState}`, to: `${trip.toCity}+${trip.toState}`};
     });
     let tripPromises = tripQueries.map(trip => {
@@ -51,24 +55,24 @@ function controller (distanceService, $state) {
         console.log('total miles before: ', this.totalTrip.totalMiles);
         //need to attach mode and distance to each movement,
         //and add each movement to totalTrip
+        //should combine these two array loops
         array.forEach(trip => {
           let distance = trip.rows[0].elements[0].distance.value;
-          distance = Math.floor(distance / 1000 / 1.609);
+          //multiply by 2 for round-trip
+          distance = Math.floor(distance / 1000 / 1.609) * 2;
           let movement = {mode: this.groundMode, distance};
           this.totalTrip.movements.push(movement);
         });
         this.tripMiles = array.reduce((total, trip) => {
           let distance = trip.rows[0].elements[0].distance.value;
           distance = Math.floor(distance / 1000 / 1.609);
-          console.log(distance);
           return total + distance;
         }, 0);
-        this.totalTrip.totalMiles = this.tripMiles;
-        console.log('total miles after: ', this.totalTrip.totalMiles);
-        $state.go('movements', {totalTrip: this.totalTrip});
+        //multiply trip leg by 2 for round-trip mileage
+        this.totalTrip.totalMiles = this.tripMiles * 2;
+        $state.go('tripLegs', {totalTrip: this.totalTrip});
       })
       .catch(err => console.log(err));
-    this.resetTrips();
   };
 
 

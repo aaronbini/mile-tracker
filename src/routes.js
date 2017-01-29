@@ -33,8 +33,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
-    name: 'movements',
-    url: '/movements',
+    name: 'tripLegs',
+    url: '/tripLegs',
     params: {
       totalTrip: null,
       airMiles: null
@@ -55,8 +55,16 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'dashboard',
     url: '/dashboard',
+    params: {
+      newTrip: null
+    },
     resolve: {
-      trips: ['tripService', t => t.getMyTrips()]
+      trips: ['tripService', t => t.getMyTrips()],
+      newTrip: ['$transition$', t => {
+        if (t.params().totalTrip) {
+          return t.params().totalTrip;
+        }
+      }]
     },
     views: {
       header: {
@@ -66,6 +74,15 @@ export default function routes($stateProvider, $urlRouterProvider) {
         component: 'dashboard'
       }
     }
+  });
+
+  $stateProvider.state({
+    name: 'dashboard.tripDetail',
+    url: '/tripDetail/:id',
+    resolve: {
+      trip: ['tripService', '$transition$', (trip, transition) => trip.getOneTrip(transition.params().id)]
+    },
+    component: 'tripDetail'
   });
 
   // $stateProvider.state({
