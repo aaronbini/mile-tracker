@@ -1,17 +1,20 @@
-  <h3 class="center-header">Add all flights for this trip, including return flights:</h3>
+<md-card class="card-background">
+  <div layout="row" layout-align="center center">
+    <h3>Add all flights for this trip, including return flights:</h3>
+    <md-button ng-click="$ctrl.addNewFlight()" class="md-raised md-accent">Add Another Flight</md-button>
+  </div>
+  <h4 class="center-header">Check the box next to your destination city</h4>
   <div layout="column" layout-align="space-around center">
 
-    <div layout="row" layout-align="space-between center" style="width: 60%;">
-      <md-button ng-click="$ctrl.addNewFlight()" class="md-raised md-accent">Add Another Flight</md-button>
-      <md-button ng-click="$ctrl.submitFlights()" class="md-raised md-accent">Submit Flights</md-button>
-    </div>
-        
     <md-content 
-      class="md-padding" 
+      class="md-padding card-background" 
       ng-repeat="new in $ctrl.newFlights track by $index" 
-      layout-gt-xs="row" 
-      layout-align="space-around center">
-      
+      layout="row" 
+      layout-align-gt-sm="center center"
+      layout-margin>
+        <div style="margin-top: 8px; margin-right: 0px;">
+          <span style="margin-right: 5px;">Starting city?</span><md-checkbox ng-model="new.departure"></md-checkbox>
+        </div>          
         <form ng-submit="$event.preventDefault()">
           <md-autocomplete
               md-select-on-match
@@ -44,11 +47,15 @@
           </md-autocomplete>
           <br/>
         </form>
-      
-      <md-button class="md-raised md-warn" style="margin-bottom: 22px;" ng-click="$ctrl.removeFlight(new, $index)">Remove Flight</md-button>
+         <!-- this captures name of final destination city -->
+        <div style="margin-top: 8px; margin-right: 0px;">
+          <span style="margin-right: 5px;">Destination city?</span><md-checkbox ng-model="new.destination"></md-checkbox>
+        </div>
+        <md-button class="md-raised md-warn" style="margin-bottom: 22px;" ng-click="$ctrl.removeFlight(new, $index)">Remove Flight</md-button>
     
     </md-content>
     
-  </div>
+    <md-button ng-click="$ctrl.submitFlights()" class="md-raised md-accent">Submit Flights</md-button>
 
-  <div ng-model="$ctrl.flightMiles">{{$ctrl.flightMiles}}</div> {{$ctrl.flightMiles | json}}
+  </div>
+</md-card>

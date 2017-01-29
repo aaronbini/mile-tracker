@@ -1,23 +1,21 @@
 <md-content layout-padding>
   <div ng-class="$ctrl.styles.new">
-    
-    <h3 class="center-header" style="margin-top: 20px">Select your departure and return dates: </h3>
-    <div layout-gt-xs="row" layout-align-gt-xs="space-around center">
-        <md-datepicker ng-model="$ctrl.totalTrip.startDate" md-placeholder="Departure Date"></md-datepicker>
-        <md-datepicker ng-model="$ctrl.totalTrip.endDate" md-placeholder="Return Date"></md-datepicker>
-    </div>
+    <md-card class="card-background">
+      <h3 class="center-header" style="margin-top: 20px">Select your departure and return dates: </h3>
+      <div layout-gt-xs="row" layout-align-gt-xs="center center">
+          <md-datepicker ng-model="$ctrl.totalTrip.startDate" md-placeholder="Departure Date"></md-datepicker>
+          <md-datepicker ng-model="$ctrl.totalTrip.endDate" md-placeholder="Return Date"></md-datepicker>
+      </div>
+    </md-card>
 
-    <h3 class="center-header">Select your mode of transportation to your destination city:</h3>
-    <md-radio-group ng-model="$ctrl.mode" layout="row" layout-align="center">
-      <md-radio-button ng-repeat="mode in $ctrl.options" ng-value="mode" aria-label="{{mode}}">
-        {{mode}}
-      </md-radio-button>
-    </md-radio-group>
-    <md-radio-group ng-if="$ctrl.mode === 'Ground'" ng-model="$ctrl.groundMode" class="flex-container-row">
-      <md-radio-button ng-repeat="mode in $ctrl.groundOptions" ng-value="mode" aria-label="{{mode}}">
-        {{mode}}
-      </md-radio-button>
-    </md-radio-group>
+    <md-card class="card-background">
+      <h3 class="center-header">Select your mode of transportation to your destination city:</h3>
+      <md-radio-group ng-model="$ctrl.mode" layout="row" layout-align="center">
+        <md-radio-button ng-repeat="mode in $ctrl.options" ng-value="mode" aria-label="{{mode}}">
+          {{mode}}
+        </md-radio-button>
+      </md-radio-group>
+    </md-card>
 
     <new-ground-trip 
       ng-if="$ctrl.mode === 'Ground'" 
@@ -29,9 +27,6 @@
       total-trip="$ctrl.totalTrip"> 
     </new-round-trip>
     <md-divider></md-divider>
-    <destination-movements
-      total-trip="$ctrl.totalTrip"> 
-    </destination-movements>
   </div>
   <md-button class="md-raised md-accent">Log This Trip</md-button>
 </md-content>

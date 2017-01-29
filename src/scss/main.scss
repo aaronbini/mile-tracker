@@ -108,15 +108,23 @@ md-radio-button {
   }
 }
 
-md-autocomplete {
-  margin-left: 10px;
-  margin-right: 10px;
-}
+// md-autocomplete {
+//   margin-left: 10px;
+//   margin-right: 10px;
+// }
 
 md-divider {
   width: 98%;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+md-checkbox span {
+  font-size: 1.25 em;
+}
+
+.card-background {
+  background-color: darkseagreen;
 }
 
 .center-header {
@@ -128,6 +136,8 @@ md-divider {
 .md-button {
   opacity: 0.8;
   padding: 3px 12px;
+  min-width: 125px;
+  max-height: 48px;
 }
 
 .logo {
@@ -171,20 +181,6 @@ md-divider {
   padding: calc((100% - 1500px)/6.1);
   display: inline-block;
 }
-
-// .md-button.md-icon-button {
-//   width: auto;
-//   display: inline-block;
-//   border-radius: 0;
-// }
-
-// .md-date-picker.md-virtual-repeat-scroller {
-//   color: black;
-// }
-
-// .md-calendar.md-default-theme, .md-calendar {
-//   color: black;
-// }
 
 .error {
   border: 2px solid darkred;

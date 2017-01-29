@@ -1,48 +1,59 @@
-<h2 style="margin-top: 10px; text-align: center;">Trip By Ground</h2>
-<form name="tripLeg" ng-submit="tripLeg.$valid && $ctrl.submitTrips()" layout="column">
-  <md-button ng-click="$ctrl.addTripLeg()" class="md-raised md-accent">Add Trip Leg</md-button>
-  <div ng-repeat="trip in $ctrl.trips track by $index" class="flex-container-row flex-center">
-    <div class="flex-container-row">
-      <md-input-container>
-        <input name="fromCity" required placeholder="Departure City:" type="text" ng-model="trip.fromCity">
-        <div ng-messages="tripLeg.fromCity.$error" role="alert">
-          <div ng-message="required">A departure city is required.</div>
-        </div>
-      </md-input-container>
+<md-card class="card-background">
+  <h3 class="center-header">Select the mode of ground transportation used:</h3>
+  <md-radio-group ng-model="$ctrl.groundMode" class="flex-container-row">
+    <md-radio-button ng-repeat="mode in $ctrl.groundOptions" ng-value="mode.type" aria-label="{{mode.display}}">
+      {{mode.display}}
+    </md-radio-button>
+  </md-radio-group>
+  <!--<div layout="row" layout-align="center center">
+    <h3 style="text-align: center; margin-bottom: 12px; margin-right: 4px;">If this was a round-trip, check the box:</h3>
+    <md-checkbox ng-model="$ctrl.roundTrip"></md-checkbox>
+  </div>-->
 
-      <md-input-container>
-        <md-select ng-model="trip.fromState" placeholder="Select ">
-          <md-option ng-value="state" ng-repeat="state in $ctrl.states">{{ state }}</md-option>
-        </md-select>
-      </md-input-container>
+</md-card>
+
+<md-card class="card-background">
+    <div>
+      <h3 style="text-align: center; margin-top: 20px; margin-bottom: 10px;">Enter starting city and destination city below:</h3>
     </div>
-
-    <div class="flex-container-row">
-      <md-input-container>
-        <input name="to" required placeholder="Destination City:" type="text" ng-model="trip.toCity">
-        <div ng-messages="tripLeg.toCity.$error" role="alert">
-          <div ng-message="required">A destination city is required.</div>
-        </div>
-      </md-input-container>
-
+  <form name="tripLeg" ng-submit="tripLeg.$valid && $ctrl.submitTrips()" layout="column" layout-align="space-around center" style="margin-top: 15px;">
+    <!--<md-button ng-if="!$ctrl.roundTrip" ng-click="$ctrl.addTripLeg()" class="md-raised md-accent">Add Trip Leg</md-button>-->
+    <div ng-repeat="trip in $ctrl.trips track by $index" class="flex-container-row flex-center">
+      <div layout="row" layout-align="space-around center">
         <md-input-container>
-          <md-select ng-model="trip.toState" placeholder="Select ">
+          <input name="fromCity" required placeholder="Departure City:" type="text" ng-model="trip.fromCity">
+          <div ng-messages="tripLeg.fromCity.$error" role="alert">
+            <div ng-message="required">A departure city is required.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container style="padding-bottom: 25px;">
+          <md-select ng-model="trip.fromState" placeholder="State">
             <md-option ng-value="state" ng-repeat="state in $ctrl.states">{{ state }}</md-option>
           </md-select>
         </md-input-container>
       </div>
+
+      <div layout="row" layout-align="space-around center">
+        <md-input-container>
+          <input name="to" required placeholder="Destination City:" type="text" ng-model="trip.toCity">
+          <div ng-messages="tripLeg.toCity.$error" role="alert">
+            <div ng-message="required">A destination city is required.</div>
+          </div>
+        </md-input-container>
+
+          <md-input-container style="padding-bottom: 25px;">
+            <md-select ng-model="trip.toState" placeholder="State">
+              <md-option ng-value="state" ng-repeat="state in $ctrl.states">{{ state }}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      
+      <md-button ng-click="$ctrl.removeTripLeg(trip, $index)" class="md-raised md-warn">Remove Trip Leg</md-button>
+    </div>
+
+      <md-button type="submit" class="md-raised md-accent">Submit Ground Miles</md-button>
     
-    <md-button ng-click="$ctrl.removeTripLeg(trip, $index)" class="md-raised md-accent">Remove Trip Leg</md-button>
-  </div>
+  </form>
 
-  <md-dialog-actions>
-    <md-button type="submit" class="md-raised md-accent">Submit Trip</md-button>
-  </md-dialog-actions>
-
-  <md-dialog-actions>
-    <md-button ng-click="$ctrl.cancel()" class="md-raised md-accent">Cancel</md-button>
-  </md-dialog-actions>
-
-</form>
-
-<div>{{$ctrl.tripMiles}}</div>
+</md-card>

@@ -9,8 +9,7 @@ export default {
   controller
 };
 
-controller.$inject = ['tripService'];
-function controller (tripService) {
+function controller () {
   this.styles = styles;
   
   this.$onInit = () => {
@@ -18,6 +17,8 @@ function controller (tripService) {
       this.totalTrip = {
         startDate: null,
         endDate: null,
+        departure: null,
+        destination: null,
         movements: []
       };
     };
@@ -25,19 +26,7 @@ function controller (tripService) {
   };
 
   this.options = ['Air', 'Ground'];
-  this.groundOptions = ['Bus', 'Train', 'Car'];
   this.mode = 'Air';
   this.groundMode = 'Car';
-
-  //could pass the new trip to next state but might not be necessary
-  //as long as we resolve all users trips
-  this.addNewTrip = (trip) => {
-    tripService.addTrip(trip)
-      .then(trip => {
-        this.resetTrip();
-        $state.go('dashboard', {trip});
-      })
-      .catch(err => console.log(err));
-  };
   
 }

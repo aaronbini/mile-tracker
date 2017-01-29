@@ -2,11 +2,14 @@ import template from './new-ground-trip.html';
 
 export default {
   template,
+  bindings: {
+    totalTrip: '<'
+  },
   controller
 };
 
-controller.$inject = ['distanceService'];
-function controller (distanceService) {
+controller.$inject = ['distanceService', '$state'];
+function controller (distanceService, $state) {
   
   this.states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 
     'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 
@@ -14,6 +17,9 @@ function controller (distanceService) {
     'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 
     'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 
     'WA', 'WI', 'WV', 'WY'];
+
+  this.groundOptions = [{type: 'car', display: 'Car'}, {type: 'bus', display: 'Bus'}, {type: 'train', display: 'Train'}];
+  this.groundMode = 'car';
 
   this.resetTrips = () => {
     this.trips = [ {fromCity: '', fromState: '', toCity: '', toState: '' } ];
@@ -32,22 +38,34 @@ function controller (distanceService) {
     ];
   };
 
-  //gives the form info to add a new company
+  //submit ground trips
   this.submitTrips = () => {
     let tripQueries = this.trips.map(trip => {
       return {from: `${trip.fromCity}+${trip.fromState}`, to: `${trip.toCity}+${trip.toState}`};
     });
     let tripPromises = tripQueries.map(trip => {
-      return distanceService.getDistance(trip.from, trip.to);
+      return distanceService.getDistance(trip.from, trip.to, this.groundMode);
     });
     Promise.all(tripPromises)
       .then(array => {
-        console.log('trip array: ', array);
+        console.log('total miles before: ', this.totalTrip.totalMiles);
+        //need to attach mode and distance to each movement,
+        //and add each movement to totalTrip
+        array.forEach(trip => {
+          let distance = trip.rows[0].elements[0].distance.value;
+          distance = Math.floor(distance / 1000 / 1.609);
+          let movement = {mode: this.groundMode, distance};
+          this.totalTrip.movements.push(movement);
+        });
         this.tripMiles = array.reduce((total, trip) => {
           let distance = trip.rows[0].elements[0].distance.value;
           distance = Math.floor(distance / 1000 / 1.609);
+          console.log(distance);
           return total + distance;
         }, 0);
+        this.totalTrip.totalMiles = this.tripMiles;
+        console.log('total miles after: ', this.totalTrip.totalMiles);
+        $state.go('movements', {totalTrip: this.totalTrip});
       })
       .catch(err => console.log(err));
     this.resetTrips();

@@ -33,6 +33,26 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
+    name: 'movements',
+    url: '/movements',
+    params: {
+      totalTrip: null,
+      airMiles: null
+    },
+    resolve: {
+      totalTrip: ['$transition$', t => t.params().totalTrip]
+    },
+    views: {
+      header: {
+        component: 'dashboardHeader'
+      },
+      main: {
+        component: 'destinationMovements'
+      }
+    }
+  });
+
+  $stateProvider.state({
     name: 'dashboard',
     url: '/dashboard',
     resolve: {
