@@ -3,24 +3,24 @@ import template from './new-round-trip.html';
 export default {
   template,
   bindings: {
-    airports: '<'
+    airports: '<',
+    totalTrip: '<'
   },
   controller
 };
 
-// controller.$inject = ['distanceService', 'flightService', 'tripService'];
-controller.$inject = ['flightService'];
-function controller (flightService) {
+controller.$inject = ['flightService', '$state'];
+function controller (flightService, $state) {
   
   this.$onInit = () => {
+    console.log(this.airports[0]);
     //add display property for displaying in dropdown
     this.airports = this.airports.map(airport => {
       airport.display = `(${airport.code}) ${airport.name}, ${airport.country}`;
       return airport;
     });
   };
-  
-  //might not be necessary 
+
   this.resetFlights = () => {
     this.newFlights = [{from: null, to: null, searchFrom: '', searchTo: ''}];
   };
@@ -38,21 +38,39 @@ function controller (flightService) {
     ];
   };
 
-  //gives the form info to add a new company
+  //submit flights for distance calculation
   this.submitFlights = () => {
-    console.log(this.newFlights);
+    console.log('new flights: ', this.newFlights);
     let flightPromises = this.newFlights.map(flight => {
+      //attach departure and destination cities to totalTrip
+      if (flight.departure) {
+        this.totalTrip.departure = flight.from.city;
+      }
+      if (flight.destination) {
+        this.totalTrip.destination = flight.to.city;
+      }
       return flightService.getDistance(flight.from.code, flight.to.code);
     });
     Promise.all(flightPromises)
       .then(array => {
-        this.flightMiles = array.reduce((total, trip) => {
-          trip.distance = flightService.cleanDistance(trip.distance);
-          return total + parseInt(trip.distance, 10);
+        //need to attach mode and distance to each movement,
+        //and add each movement to totalTrip
+        array.forEach(flight => {
+          let movement = {mode: 'air', distance: flight.distance};
+          this.totalTrip.movements.push(movement);
+        });
+        //sum miles from all trip movements
+        const totalMiles = array.reduce((total, flight) => {
+          flight.distance = parseInt(flightService.cleanDistance(flight.distance), 10);
+          return total + flight.distance;
         }, 0);
+        //attach totalMiles to totalTrip
+        this.totalTrip.totalMiles = totalMiles;
+
+        $state.go('tripLegs', {totalTrip: this.totalTrip});
       })
       .catch(err => console.log(err));
-    this.resetFlights();
+    
   };
 
   //search for airport
@@ -68,6 +86,7 @@ function controller (flightService) {
       const lowercaseCode = angular.lowercase(airport.code) || '';
       const lowercaseAirport = angular.lowercase(airport.name) || '';
       const lowercaseCity = angular.lowercase(airport.city) || '';
+      //allow user to enter airport code, airport name, or city name to filter
       if (lowercaseCode.indexOf(lowercaseQuery) === 0 || 
           lowercaseAirport.indexOf(lowercaseQuery) === 0 ||
           lowercaseCity.indexOf(lowercaseQuery) === 0) {

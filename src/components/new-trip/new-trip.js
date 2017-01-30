@@ -9,17 +9,23 @@ export default {
   controller
 };
 
-controller.$inject = ['flightService'];
-function controller (flightService) {
+function controller () {
   this.styles = styles;
+  
   this.$onInit = () => {
-    // this.airports = flightService.airports;
-    // flightService.getAll()
-    //   .then(airports => this.airports = airports);
-  }
+    this.resetTrip = () => {
+      this.totalTrip = {
+        startDate: new Date(),
+        endDate: new Date(),
+        departure: null,
+        destination: null,
+        movements: []
+      };
+    };
+    this.resetTrip();
+  };
 
   this.options = ['Air', 'Ground'];
-  this.groundOptions = ['Bus', 'Train', 'Car'];
   this.mode = 'Air';
   this.groundMode = 'Car';
   

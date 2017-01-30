@@ -1,4 +1,45 @@
-<h2>dashboard</h2>
-  <md-button class="md-raised md-accent">Add Another Flight</md-button>
+<md-card class="card-background" layout="row" layout-align="space-around start">
+  <md-card class="inset-background" layout="column" layout-align="space-around center">
+    <div layout="column" layout-align="space-around center">
+      <h3 class="center-header">Total miles you've traveled</h3>
+      <h3>By Air: <span style="color: crimson">{{$ctrl.milesTraveled.air | number : 0}}</span></h3>
+      <h3>By Car: <span style="color: crimson">{{$ctrl.milesTraveled.car | number : 0}}</span></h3>
+      <h3>By Bus: <span style="color: crimson">{{$ctrl.milesTraveled.bus | number : 0}}</span></h3>
+      <h3>By Train: <span style="color: crimson">{{$ctrl.milesTraveled.train | number : 0}}</span></h3>
+    </div>
+    <div layout="column" layout-align="space-around center">
+      <h3 class="center-header">Total emissions from your travel </h3>
+      <h3><span style="color: crimson">{{$ctrl.yourEmissions | number : 0}} </span>Tons CO2</h3>
+    </div>
+  </md-card>
+  <!--<md-divider direction="vertical"></md-divider>-->
+  <md-card class="inset-background" layout="column" layout-align="space-around center">
+    <h3 class="center-header">Welcome <span style="color: crimson;">{{$ctrl.user.username}}</span></h3>
+    <!--<h4 style="text-align: center;">Select a trip to view details:</h4>-->
+    <md-input-container style="margin-top: 0px;">
+      <md-select ng-model="tripId" placeholder="Select A Trip to View Details" ng-change="$ctrl.showDetails(tripId)">
+        <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</md-option>
+      </md-select>
+    </md-input-container>
+    
+    <!--<div ng-repeat="trip in $ctrl.trips track by $index">
+      <a ng-class="['trip-links', {'active-link': $ctrl.current==$index}]" ng-click="$ctrl.current=$index" ui-sref="dashboard.tripDetail({id: trip._id})">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</a>
+    </div>-->
+  </md-card>
+  <!--<md-divider direction="vertical"></md-divider>-->
+  <md-card class="inset-background" layout="column" layout-align="space-around center">
+    <div layout="column" layout-align="space-around center">
+      <h3 class="center-header">Total Company Miles</h3>
+      <h3>By Air: <span style="color: crimson">{{$ctrl.companyTotals.air | number : 0}}</span></h3>
+      <h3>By Car: <span style="color: crimson">{{$ctrl.companyTotals.car | number : 0}}</span></h3>
+      <h3>By Bus: <span style="color: crimson">{{$ctrl.companyTotals.bus | number : 0}}</span></h3>
+      <h3>By Train: <span style="color: crimson">{{$ctrl.companyTotals.train | number : 0}}</span></h3>
+    </div>
+    <div layout="column" layout-align="space-around center">
+      <h3 class="center-header">Total company emissions from travel</h3>
+      <h3><span style="color: crimson">{{$ctrl.companyEmissions | number : 0}} </span>Tons CO2</h3>
+    </div>
+  </md-card>
+</md-card>
 
-  <md-button class="md-raised md-accent">Add Another Flight</md-button>
+<ui-view></ui-view>

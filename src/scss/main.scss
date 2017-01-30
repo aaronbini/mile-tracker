@@ -59,8 +59,11 @@ h6 {
 
 
 p {
-  font-size: 1.25em;
+  font-size: 1.35em;
   font-weight: 200;
+  margin: 25px;
+  line-height: 1.5;
+  text-align: center;
 }
 
 footer {
@@ -96,7 +99,8 @@ main {
 }
 
 md-radio-group {
-  margin-top: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 md-radio-button {
@@ -107,15 +111,56 @@ md-radio-button {
   }
 }
 
-md-divider {
-  width: 98%;
-  margin-top: 20px;
+// md-divider {
+//   width: 98%;
+//   margin-top: 20px;
+//   margin-bottom: 20px;
+// }
+
+md-checkbox span {
+  font-size: 1.25 em;
+}
+
+.active-link {
+  color: crimson;
+}
+
+.trip-links {
+  font-size: 1.25em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.checkbox-text {
+  margin-bottom: 16px;
+  margin-right: 5px;
+}
+
+.card-background {
+  background-color: darkseagreen;
+}
+
+.inset-background {
+  background-color: seagreen;
+  padding: 15px;
+}
+
+.center-header {
+  text-align: center; 
+  margin-bottom: 15px;
+  margin-top: 45px;
+}
+
+.mid-header {
+  text-align: center;
   margin-bottom: 20px;
 }
 
 .md-button {
   opacity: 0.8;
   padding: 3px 12px;
+  min-width: 125px;
+  max-height: 48px;
 }
 
 .logo {
@@ -154,16 +199,18 @@ md-divider {
 }
 
 .canvasContain {
-  width: 50%;
-  height: 100%;
-  padding: calc((100% - 1500px)/6.1);
-  display: inline-block;
-}
+  width: 70%;
 
-.md-button.md-icon-button {
-  width: auto;
-  display: inline-block;
-  border-radius: 0;
+  canvas {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 90%;
+    height: 90%;
+    z-index: 100;
+    position: relative;
+    padding: calc((100% - 1500px)/6.1);
+    display: inline-block;
+  }
 }
 
 .error {

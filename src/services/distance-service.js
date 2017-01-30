@@ -9,8 +9,8 @@ export default function distanceService ($http, apiUrl) {
     return string;
   }
 
-  function getDistance (start, end) {
-    return $http.get(`${apiUrl}/groundTrips?from=${start}&to=${end}`)
+  function getDistance (start, end, mode = 'car') {
+    return $http.get(`${apiUrl}/groundTrips?from=${start}&to=${end}&mode=${mode}`)
       .then(response => response.data);
   }
 

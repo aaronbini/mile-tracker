@@ -38,6 +38,7 @@ export default function userService(token, $http, apiUrl) {
       token.remove();
     },
     signin: credential('signin'),
-    signup: credential('signup')
+    signup: credential('signup'),
+    getMe
   };
 }

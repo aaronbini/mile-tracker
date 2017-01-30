@@ -1,8 +1,20 @@
-  <div class="flex-container-column flex-center">
+<md-card class="card-background">
+  <div layout="row" layout-align="center center">
+    <h3 style="margin-top: 20px; margin-bottom: 10px;"><b>STEP 3:</b> Add all flights for this trip, <span style="color: crimson;"><i>including return flights:</i></span></h3>
     <md-button ng-click="$ctrl.addNewFlight()" class="md-raised md-accent">Add Another Flight</md-button>
-    <md-content class="md-padding flex-container-row space-around" ng-repeat="new in $ctrl.newFlights track by $index">
-      <div>
-        <h3>From:</h3>
+  </div>
+  <h3 style="margin-top: 15px; margin-bottom: 0px; text-align: center;">Check the box next to your starting city as well as your final destination city. This will be used for record-keeping purposes:</h3>
+  <div layout="column" layout-align="space-around center">
+
+    <md-content 
+      class="md-padding card-background" 
+      ng-repeat="new in $ctrl.newFlights track by $index" 
+      layout="row" 
+      layout-align-gt-sm="center center"
+      layout-margin>
+        <div style="margin-top: 8px; margin-right: 0px;">
+          <span style="margin-right: 5px;">Starting city?</span><md-checkbox ng-model="new.departure"></md-checkbox>
+        </div>          
         <form ng-submit="$event.preventDefault()">
           <md-autocomplete
               md-select-on-match
@@ -11,6 +23,7 @@
               md-items="item in $ctrl.querySearch(new.searchFrom)"
               md-item-text="item.display"
               md-min-length="0"
+              md-require-match="true"
               placeholder="Departure Airport/City">
             <md-item-template>
               <span md-highlight-text="new.searchFrom" md-highlight-flags="^i">{{item.display}}</span>
@@ -18,9 +31,7 @@
           </md-autocomplete>
           <br/>
         </form>
-      </div>
-      <div>
-        <h3>To:</h3>
+
         <form ng-submit="$event.preventDefault()">
           <md-autocomplete
               md-select-on-match
@@ -36,9 +47,15 @@
           </md-autocomplete>
           <br/>
         </form>
-      </div>
-      <md-button ng-click="$ctrl.removeFlight(new, $index)">Remove Flight</md-button>
+         <!-- this captures name of final destination city -->
+        <div style="margin-top: 8px; margin-right: 0px;">
+          <span style="margin-right: 5px;">Destination city?</span><md-checkbox ng-model="new.destination"></md-checkbox>
+        </div>
+        <md-button class="md-raised md-warn" style="margin-bottom: 22px;" ng-click="$ctrl.removeFlight(new, $index)">Remove Flight</md-button>
+    
     </md-content>
+    
     <md-button ng-click="$ctrl.submitFlights()" class="md-raised md-accent">Submit Flights</md-button>
+
   </div>
-  <div>{{$ctrl.flightMiles}}</div>
+</md-card>

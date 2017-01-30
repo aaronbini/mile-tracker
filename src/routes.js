@@ -6,6 +6,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'welcome',
     url: '/',
     data: { public: true },
+    resolve: {
+      user: ['userService', u => u.getMe() || null]
+    },
     views: {
       main: {
         component: 'welcome' 
@@ -33,8 +36,41 @@ export default function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state({
+    name: 'tripLegs',
+    url: '/tripLegs',
+    params: {
+      totalTrip: null,
+      airMiles: null
+    },
+    resolve: {
+      totalTrip: ['$transition$', t => t.params().totalTrip]
+    },
+    views: {
+      header: {
+        component: 'dashboardHeader'
+      },
+      main: {
+        component: 'destinationMovements'
+      }
+    }
+  });
+
+  $stateProvider.state({
     name: 'dashboard',
     url: '/dashboard',
+    params: {
+      newTrip: null
+    },
+    resolve: {
+      user: ['userService', u => u.getMe()],
+      trips: ['tripService', t => t.getMyTrips()],
+      newTrip: ['$transition$', t => {
+        if (t.params().totalTrip) {
+          return t.params().totalTrip;
+        }
+      }],
+      companyMiles: ['tripService', t => t.getCompanyMileage()]
+    },
     views: {
       header: {
         component: 'dashboardHeader'
@@ -43,6 +79,15 @@ export default function routes($stateProvider, $urlRouterProvider) {
         component: 'dashboard'
       }
     }
+  });
+
+  $stateProvider.state({
+    name: 'dashboard.tripDetail',
+    url: '/tripDetail/:id',
+    resolve: {
+      trip: ['tripService', '$transition$', (trip, transition) => trip.getOneTrip(transition.params().id)]
+    },
+    component: 'tripDetail'
   });
 
   // $stateProvider.state({
@@ -98,6 +143,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'admin',
     url: '/admin',
     data: { admin: true },
+    resolve: {
+      trips: ['tripService', trip => trip.getAllTrips()]
+    },
     views: {
       header: {
         component: 'dashboardHeader'
