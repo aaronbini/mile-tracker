@@ -15,8 +15,8 @@ function controller () {
   this.$onInit = () => {
     this.resetTrip = () => {
       this.totalTrip = {
-        startDate: null,
-        endDate: null,
+        startDate: new Date(),
+        endDate: new Date(),
         departure: null,
         destination: null,
         movements: []

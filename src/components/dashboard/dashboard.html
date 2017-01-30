@@ -1,6 +1,21 @@
-<h2>dashboard</h2>
-<div ng-repeat="trip in $ctrl.trips">
-  <span><a ui-sref="dashboard.tripDetail({id: trip._id})">{{trip.departure}} to {{trip.destination}}</a>from {{trip.startDate | date: 'shortDate'}} to {{trip.endDate | date: 'shortDate'}}</span>
-</div>
+<md-card class="card-background" layout="row" layout-align="space-around start">
+  <div layout="column" layout-align="space-around center">
+    <h3 class="center-header">Total miles traveled</h3>
+    <h3>By Air: <span style="color: crimson">{{$ctrl.milesTraveled.air | number : 0}}</span></h3>
+    <h3>By Car: <span style="color: crimson">{{$ctrl.milesTraveled.car | number : 0}}</span></h3>
+    <h3>By Bus: <span style="color: crimson">{{$ctrl.milesTraveled.bus | number : 0}}</span></h3>
+    <h3>By Train: <span style="color: crimson">{{$ctrl.milesTraveled.train | number : 0}}</span></h3>
+  </div>
+  <div layout="column" layout-align="space-around center">
+    <h3 class="center-header">Welcome <span style="color: crimson;">{{$ctrl.user.username}}</span></h3>
+    <div ng-repeat="trip in $ctrl.trips track by $index">
+      <a ng-class="['trip-links', {'active-link': $ctrl.current==$index}]" ng-click="$ctrl.current=$index" ui-sref="dashboard.tripDetail({id: trip._id})">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</a>
+    </div>
+  </div>
+  <div layout="column" layout-align="space-around center">
+    <h3 class="center-header">Total emissions from travel: </h3>
+    <h3><span style="color: crimson">{{$ctrl.totalEmissions | number : 0}} </span>Tons CO2</h3>
+  </div>
+</md-card>
 
 <ui-view></ui-view>

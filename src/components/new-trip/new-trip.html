@@ -1,15 +1,15 @@
 <md-content layout-padding>
   <div ng-class="$ctrl.styles.new">
     <md-card class="card-background">
-      <h3 class="center-header" style="margin-top: 20px">Select your departure and return dates: </h3>
+      <h3 class="center-header" style="margin-top: 20px"><b>STEP 1:</b> Select your departure and return dates: </h3>
       <div layout-gt-xs="row" layout-align-gt-xs="center center">
-          <md-datepicker ng-model="$ctrl.totalTrip.startDate" md-placeholder="Departure Date"></md-datepicker>
-          <md-datepicker ng-model="$ctrl.totalTrip.endDate" md-placeholder="Return Date"></md-datepicker>
+          <h4 style="margin-bottom: 10px;">Departure Date: </h4><md-datepicker ng-model="$ctrl.totalTrip.startDate" md-placeholder="Departure Date"></md-datepicker>
+          <h4 style="margin-bottom: 10px; margin-left: 25px;">Return Date: </h4><md-datepicker ng-model="$ctrl.totalTrip.endDate" md-placeholder="Return Date"></md-datepicker>
       </div>
     </md-card>
 
     <md-card class="card-background">
-      <h3 class="center-header">Select your mode of transportation to your destination city:</h3>
+      <h3 class="center-header"><b>STEP 2:</b> Select the mode of transportation to your destination city:</h3>
       <md-radio-group ng-model="$ctrl.mode" layout="row" layout-align="center">
         <md-radio-button ng-repeat="mode in $ctrl.options" ng-value="mode" aria-label="{{mode}}">
           {{mode}}

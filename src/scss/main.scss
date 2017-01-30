@@ -121,6 +121,16 @@ md-checkbox span {
   font-size: 1.25 em;
 }
 
+.active-link {
+  color: crimson;
+}
+
+.trip-links {
+  font-size: 1.25em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
 .checkbox-text {
   margin-bottom: 16px;
   margin-right: 5px;
@@ -134,6 +144,11 @@ md-checkbox span {
   text-align: center; 
   margin-bottom: 15px;
   margin-top: 45px;
+}
+
+.mid-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .md-button {
@@ -179,10 +194,18 @@ md-checkbox span {
 }
 
 .canvasContain {
-  width: 50%;
-  height: 100%;
-  padding: calc((100% - 1500px)/6.1);
-  display: inline-block;
+  width: 70%;
+
+  canvas {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 90%;
+    height: 90%;
+    z-index: 100;
+    position: relative;
+    padding: calc((100% - 1500px)/6.1);
+    display: inline-block;
+  }
 }
 
 .error {

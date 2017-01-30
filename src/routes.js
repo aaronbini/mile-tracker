@@ -59,6 +59,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
       newTrip: null
     },
     resolve: {
+      user: ['userService', u => u.getMe()],
       trips: ['tripService', t => t.getMyTrips()],
       newTrip: ['$transition$', t => {
         if (t.params().totalTrip) {
@@ -138,6 +139,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'admin',
     url: '/admin',
     data: { admin: true },
+    resolve: {
+      trips: ['tripService', trip => trip.getAllTrips()]
+    },
     views: {
       header: {
         component: 'dashboardHeader'

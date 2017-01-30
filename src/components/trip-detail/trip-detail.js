@@ -8,16 +8,22 @@ export default {
   controller
 };
 
-function controller () {
+controller.$inject = ['chartService'];
+function controller (chartService) {
   this.$onInit = () => {
-    this.getModeMiles = () => {
-      this.modeMiles = this.trip.movements.reduce((accumulator, movement) => {
-        console.log(movement);
-        accumulator[movement.mode] += movement.distance;
-        return accumulator;
-      }, {air: 0, car: 0, bus: 0, train: 0});
-      console.log(this.modeMiles);
-    };
+    console.log(this.trip);
+    this.emissions = 12;
+    const bar = document.getElementById('bar');
     this.getModeMiles();
+    chartService.configModeChart(bar, this.modeMiles);
   };
+
+
+  this.getModeMiles = () => {
+    this.modeMiles = this.trip.movements.reduce((accumulator, movement) => {
+      accumulator[movement.mode] += movement.distance;
+      return accumulator;
+    }, {air: 0, car: 0, bus: 0, train: 0});
+  };
+
 };
