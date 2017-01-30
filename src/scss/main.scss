@@ -111,11 +111,11 @@ md-radio-button {
   }
 }
 
-md-divider {
-  width: 98%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+// md-divider {
+//   width: 98%;
+//   margin-top: 20px;
+//   margin-bottom: 20px;
+// }
 
 md-checkbox span {
   font-size: 1.25 em;
@@ -138,6 +138,11 @@ md-checkbox span {
 
 .card-background {
   background-color: darkseagreen;
+}
+
+.inset-background {
+  background-color: seagreen;
+  padding: 15px;
 }
 
 .center-header {

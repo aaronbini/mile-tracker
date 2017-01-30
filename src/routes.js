@@ -6,6 +6,9 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'welcome',
     url: '/',
     data: { public: true },
+    resolve: {
+      user: ['userService', u => u.getMe() || null]
+    },
     views: {
       main: {
         component: 'welcome' 
@@ -65,7 +68,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
         if (t.params().totalTrip) {
           return t.params().totalTrip;
         }
-      }]
+      }],
+      companyMiles: ['tripService', t => t.getCompanyMileage()]
     },
     views: {
       header: {

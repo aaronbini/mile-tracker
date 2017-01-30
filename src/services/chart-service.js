@@ -35,22 +35,39 @@ export default function chartService () {
         {
           data: [modes.air, modes.car, modes.bus, modes.train],
           backgroundColor: [
-            'rgba(0, 128, 0, 1.0)',
-            'rgba(0, 255, 0, 1.0)',
             'rgba(255, 255, 0, 1.0)',
-            'rgba(255, 165, 0, 1.0)'
+            'rgba(255, 165, 0, 1.0)',
+            'rgba(0, 255, 0, 1.0)',
+            'rgba(0, 128, 0, 1.0)'
           ],
           hoverBackgroundColor: [
-            'rgba(0, 128, 0, 1.0)',
-            'rgba(0, 255, 0, 1.0)',
-            'rgba(255, 255, 0, 1.0)',
-            'rgba(255, 165, 0, 1.0)'
+            'rgba(255, 255, 0, 0.8)',
+            'rgba(255, 165, 0, 0.8)',
+            'rgba(0, 255, 0, 0.8)',
+            'rgba(0, 128, 0, 0.8)'
           ]
         }]
     };
     return new chart(context, {
       type: 'bar',
-      data: dataPlot
+      data: dataPlot,
+      options: {
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            title: function(item) {
+              return `${item[0].xLabel} Miles: `;
+            },
+            afterTitle: function(item) {
+
+              return item[0].yLabel;
+            },
+            label: function(){},
+            afterLabel: function(){}
+          }
+        }
+      }
     });
   }
   

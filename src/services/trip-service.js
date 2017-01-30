@@ -10,11 +10,16 @@ export default function tripService($http, apiUrl) {
   //use default params here to set dates
   function getAllTrips (from = new Date('1987-01-01'), to = new Date()) {
     return $http.get(`${apiUrl}/trips?from=${from}&to=${to}`)
-      .then(result = result.data);
+      .then(result => result.data);
   }
 
   function getOneTrip (id) {
     return $http.get(`${apiUrl}/trips/byTrip/${id}`)
+      .then(result => result.data);
+  }
+
+  function getCompanyMileage () {
+    return $http.get(`${apiUrl}/trips/companyTotals`)
       .then(result => result.data);
   }
 
@@ -31,6 +36,7 @@ export default function tripService($http, apiUrl) {
     getMyTrips,
     getOneTrip,
     getAllTrips,
+    getCompanyMileage,
     addTrip
   };
 }

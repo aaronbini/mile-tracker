@@ -52,7 +52,7 @@ function controller (distanceService, $state) {
     });
     Promise.all(tripPromises)
       .then(array => {
-        console.log('total miles before: ', this.totalTrip.totalMiles);
+        console.log('returned array: ', array);
         //need to attach mode and distance to each movement,
         //and add each movement to totalTrip
         //should combine these two array loops
