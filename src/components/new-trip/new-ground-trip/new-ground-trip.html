@@ -5,10 +5,6 @@
       {{mode.display}}
     </md-radio-button>
   </md-radio-group>
-  <!--<div layout="row" layout-align="center center">
-    <h3 style="text-align: center; margin-bottom: 12px; margin-right: 4px;">If this was a round-trip, check the box:</h3>
-    <md-checkbox ng-model="$ctrl.roundTrip"></md-checkbox>
-  </div>-->
 
 </md-card>
 
@@ -17,7 +13,6 @@
       <h3 style="text-align: center; margin-top: 20px; margin-bottom: 10px; margin-right: 20px; margin-left: 20px; line-height: 1.5;" ><b>STEP 5:</b> Enter starting city and destination city below. <span style="color: crimson;"><i>Your round-trip mileage will be calculated automatically:</i></span></h3>
     </div>
   <form name="tripLeg" ng-submit="tripLeg.$valid && $ctrl.submitTrips()" layout="column" layout-align="space-around center" style="margin-top: 15px;">
-    <!--<md-button ng-if="!$ctrl.roundTrip" ng-click="$ctrl.addTripLeg()" class="md-raised md-accent">Add Trip Leg</md-button>-->
     <div ng-repeat="trip in $ctrl.trips track by $index" class="flex-container-row flex-center">
       <div layout="row" layout-align="space-around center">
         <md-input-container>

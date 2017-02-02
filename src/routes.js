@@ -91,7 +91,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'dashboard.tripDetail',
     url: '/tripDetail/:id',
     resolve: {
-      trip: ['tripService', '$transition$', (trip, transition) => trip.getOneTrip(transition.params().id)]
+      tripDetails: ['tripService', '$transition$', (trip, transition) => trip.getOneTrip(transition.params().id)],
+
     },
     component: 'tripDetail'
   });

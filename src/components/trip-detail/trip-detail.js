@@ -3,7 +3,7 @@ import template from './trip-detail.html';
 export default {
   template,
   bindings: {
-    trip: '<'
+    tripDetails: '<'
   },
   controller
 };
@@ -11,8 +11,9 @@ export default {
 controller.$inject = ['chartService'];
 function controller (chartService) {
   this.$onInit = () => {
-    console.log(this.trip);
-    this.emissions = 12;
+    console.log(this.tripDetails);
+    this.trip = this.tripDetails.trip;
+    this.emissions = this.tripDetails.emissions;
     const bar = document.getElementById('bar');
     this.getModeMiles();
     chartService.configModeChart(bar, this.modeMiles);

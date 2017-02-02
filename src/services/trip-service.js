@@ -8,8 +8,8 @@ export default function tripService($http, apiUrl) {
   }
 
   //use default params here to set dates
-  function getAllTrips (from = new Date('1987-01-01'), to = new Date()) {
-    return $http.get(`${apiUrl}/trips?from=${from}&to=${to}`)
+  function getAllTrips (startDate = new Date('1987-01-01'), endDate = new Date()) {
+    return $http.get(`${apiUrl}/trips?startDate=${startDate}&endDate=${endDate}`)
       .then(result => result.data);
   }
 
@@ -19,8 +19,19 @@ export default function tripService($http, apiUrl) {
   }
 
   function getCompanyMileage () {
-    return $http.get(`${apiUrl}/trips/companyTotals`)
+    return $http.get(`${apiUrl}/movements/companyTotals`)
       .then(result => result.data);
+  }
+
+  function getEmissions(single) {
+    if (single) {
+      return $http.get(`${apiUrl}/movements/soloEmissions`)
+        .then(result => result.data);
+
+    } else {
+      return $http.get(`${apiUrl}/movements/companyEmissions`)
+        .then(result => result.data);
+    }
   }
 
   function getUnconfirmed () {
@@ -43,6 +54,7 @@ export default function tripService($http, apiUrl) {
     getOneTrip,
     getAllTrips,
     getUnconfirmed,
+    getEmissions,
     getCompanyMileage,
     confirmTrip,
     addTrip
