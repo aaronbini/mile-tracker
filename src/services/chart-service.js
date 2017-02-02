@@ -23,7 +23,7 @@ export default function chartService () {
 
   //could be used on dashboard trip.detail to highlight miles traveled for each trip
   //could be used on admin dashboard to view miles by mode across all trips
-  function configModeChart (context, modes) {
+  function configModeChart (context, modes, unit) {
     const dataPlot = {
       labels: [
         'Air',
@@ -57,7 +57,7 @@ export default function chartService () {
           mode: 'single',
           callbacks: {
             title: function(item) {
-              return `${item[0].xLabel} Miles: `;
+              return `${item[0].xLabel} ${unit}: `;
             },
             afterTitle: function(item) {
 

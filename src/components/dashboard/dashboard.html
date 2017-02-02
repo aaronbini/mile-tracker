@@ -26,7 +26,7 @@
     </div>
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total emissions from your travel </h3>
-      <h3><span style="color: crimson">{{$ctrl.yourEmissions | number : 0}} </span>Tons CO2</h3>
+      <h3><span style="color: crimson">{{$ctrl.soloEmissions | number : 0}} </span>Pounds CO2</h3>
     </div>
   </md-card>
   <md-card class="inset-background" layout="column" layout-align="start center">
@@ -48,7 +48,7 @@
     </div>
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total company emissions from travel</h3>
-      <h3><span style="color: crimson">{{$ctrl.companyEmissions | number : 0}} </span>Tons CO2</h3>
+      <h3><span style="color: crimson">{{$ctrl.companyEmissions | number : 0}} </span>Pounds CO2</h3>
     </div>
   </md-card>
 </md-card>

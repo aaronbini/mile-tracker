@@ -24,11 +24,18 @@ function controller (chartService, $state, tripService, $scope) {
     for (let i = 0; i < this.unconfirmed.length; i++) {
       this.confirmed[i] = false;
     }
-    this.current = null;
-    //when calculating emissions, divide each trips emissions
-    //by the number of users
-    this.yourEmissions = 13;
-    this.companyEmissions = 37;
+    Promise.all([
+      tripService.getEmissions(),
+      tripService.getEmissions(true)
+    ])
+      .then(([companyEmissions, soloEmissions]) => {
+        this.companyEmissions = companyEmissions.total;
+        this.soloEmissions = soloEmissions.total;
+        $scope.$digest();
+      })
+      .catch(err => console.log(err));
+    
+    //should probably be done on server-side
     this.milesTraveled = {air: 0, car: 0, bus: 0, train: 0};
     this.trips.forEach(trip => {
       trip.movements.reduce((accumulator, movement) => {

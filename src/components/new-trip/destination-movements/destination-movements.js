@@ -15,7 +15,6 @@ function controller (tripService, $state, distanceService) {
     // if (this.totalTrip === null) {
     //   $state.go('dashboard');
     // }
-    console.log('initial total trip: ', this.totalTrip);
     this.destMovements = {
       car: {
         distance: null,
@@ -67,7 +66,6 @@ function controller (tripService, $state, distanceService) {
     });
     Promise.all(tripPromises)
       .then(array => {
-        console.log(array);
         array.forEach(trip => {
           let distance = trip.rows[0].elements[0].distance.value;
           distance = Math.floor(distance / 1000 / 1.609);
@@ -77,11 +75,9 @@ function controller (tripService, $state, distanceService) {
         const tripMiles = array.reduce((total, trip) => {
           let distance = trip.rows[0].elements[0].distance.value;
           distance = Math.floor(distance / 1000 / 1.609);
-          console.log(distance);
           return total + distance;
         }, 0);
         this.totalTrip.totalMiles += tripMiles;
-        console.log('total miles after: ', this.totalTrip.totalMiles);
         this.submitNewTrip(this.totalTrip);
       })
       .catch(err => console.log(err));
@@ -109,7 +105,6 @@ function controller (tripService, $state, distanceService) {
   };
 
   this.submitNewTrip = (trip) => {
-    console.log('final new trip: ', trip);
     tripService.addTrip(trip)
       .then(trip => {
         $state.go('dashboard', {newTrip: trip});
