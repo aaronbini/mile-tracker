@@ -1,5 +1,5 @@
 <md-card class="card-background">
-  <h3 class="center-header"><b>STEP 3: </b>Select the mode of ground transportation used to reach your destination:</h3>
+  <h3 class="center-header"><b>STEP 4: </b>Select the mode of ground transportation used to reach your destination:</h3>
   <md-radio-group ng-model="$ctrl.groundMode" class="flex-container-row">
     <md-radio-button ng-repeat="mode in $ctrl.groundOptions" ng-value="mode.type" aria-label="{{mode.display}}">
       {{mode.display}}
@@ -14,7 +14,7 @@
 
 <md-card class="card-background">
     <div>
-      <h3 style="text-align: center; margin-top: 20px; margin-bottom: 10px; margin-right: 20px; margin-left: 20px; line-height: 1.5;" ><b>STEP 4:</b> Enter starting city and destination city below. <span style="color: crimson;"><i>Your round-trip mileage will be calculated automatically:</i></span></h3>
+      <h3 style="text-align: center; margin-top: 20px; margin-bottom: 10px; margin-right: 20px; margin-left: 20px; line-height: 1.5;" ><b>STEP 5:</b> Enter starting city and destination city below. <span style="color: crimson;"><i>Your round-trip mileage will be calculated automatically:</i></span></h3>
     </div>
   <form name="tripLeg" ng-submit="tripLeg.$valid && $ctrl.submitTrips()" layout="column" layout-align="space-around center" style="margin-top: 15px;">
     <!--<md-button ng-if="!$ctrl.roundTrip" ng-click="$ctrl.addTripLeg()" class="md-raised md-accent">Add Trip Leg</md-button>-->

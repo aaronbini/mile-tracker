@@ -7,7 +7,11 @@ export default function routes($stateProvider, $urlRouterProvider) {
     url: '/',
     data: { public: true },
     resolve: {
-      user: ['userService', u => u.getMe() || null]
+      user: ['userService', 'tokenService', (u,t) => {
+        if (t.get()) {
+          return u.getMe();
+        } else { return null; }
+      }]
     },
     views: {
       main: {
@@ -24,6 +28,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
     },
     resolve: {
       airports: ['flightService', flight => flight.getAll()],
+      users: ['userService', user => user.getAll()]
     },
     views: {
       header: {
@@ -69,7 +74,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
           return t.params().totalTrip;
         }
       }],
-      companyMiles: ['tripService', t => t.getCompanyMileage()]
+      companyMiles: ['tripService', t => t.getCompanyMileage()],
+      unconfirmed: ['tripService', t => t.getUnconfirmed()]
     },
     views: {
       header: {

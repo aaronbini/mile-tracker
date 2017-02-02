@@ -1,4 +1,9 @@
-<div layout="column" layout-align="space-around center">
-  <h2 class="center-header"><b>Welcome {{$ctrl.user.username}}</b></h2>
+<div ng-if="!$ctrl.user"layout="column" layout-align="space-around center">
+  <h2 class="center-header"><b>Welcome to the EE Travel Tracker</b></h2>
   <p style="font-size: 1.45em; line-height: 1.5; text-align: center; font-weight: 500;">Log in to enter mileage information about your EE business trips. You can view all of your trips at the dashboard, as well as up-to-date information about your travel mileage and travel mileage across the company.  Associated CO2 emissions information is tracked as well and can be viewed at the dashboard.</p>
-</div> 
+</div>
+
+<div ng-if="$ctrl.user"layout="column" layout-align="space-around center">
+  <h2 class="center-header"><b>Welcome back {{$ctrl.user.username}}!</b></h2>
+  <p style="font-size: 1.45em; line-height: 1.5; text-align: center; font-weight: 500;">Click 'Enter Site' above to head over to your dashboard, and add any new trips since your last visit.</p>
+</div>  

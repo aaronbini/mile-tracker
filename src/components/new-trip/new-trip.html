@@ -1,17 +1,49 @@
 <md-content layout-padding>
   <div ng-class="$ctrl.styles.new">
     <md-card class="card-background">
-      <h3 class="center-header" style="margin-top: 20px"><b>STEP 1:</b> Select your departure and return dates: </h3>
+      <h3 class="center-header" style="margin-top: 20px">
+        <b>STEP 1:</b> Select your departure and return dates: 
+      </h3>
       <div layout-gt-xs="row" layout-align-gt-xs="center center">
-          <h4 style="margin-bottom: 10px;">Departure Date: </h4><md-datepicker ng-model="$ctrl.totalTrip.startDate" md-placeholder="Departure Date"></md-datepicker>
-          <h4 style="margin-bottom: 10px; margin-left: 25px;">Return Date: </h4><md-datepicker ng-model="$ctrl.totalTrip.endDate" md-placeholder="Return Date"></md-datepicker>
+          <h4 style="margin-bottom: 10px;">
+            Departure Date: 
+          </h4>
+          <md-datepicker 
+            ng-model="$ctrl.totalTrip.startDate" 
+            md-placeholder="Departure Date">
+          </md-datepicker>
+          <h4 style="margin-bottom: 10px; margin-left: 25px;">
+            Return Date: 
+          </h4>
+          <md-datepicker 
+            ng-model="$ctrl.totalTrip.endDate" 
+            md-placeholder="Return Date">
+          </md-datepicker>
       </div>
     </md-card>
 
     <md-card class="card-background">
-      <h3 class="center-header"><b>STEP 2:</b> Select the mode of transportation to your destination city:</h3>
+      <h3 class="center-header" style="margin-top: 20px">
+        <b>STEP 2:</b> Did you travel with other employees? 
+      </h3>
+      <div ng-if="!$ctrl.added" style="margin-top: 8px; margin-right: 0px;" layout="row" layout-align="center center">
+        <span style="margin-right: 5px; margin-bottom: 5px; font-size: 1.25em;">
+          If so, click this button to add your travel companions:
+        </span>
+        <md-button ng-click="$ctrl.toggleSideNav()" class="md-raised md-accent">Add Travelers</md-button>
+      </div>
+      <h4 ng-if="$ctrl.added" style="text-align: center; margin-bottom: 10px;">Travel Companions Added. Thank You!</h4> 
+    </md-card>
+
+    <md-card class="card-background">
+      <h3 class="center-header">
+        <b>STEP 3:</b> Select the mode of transportation to your destination city:
+      </h3>
       <md-radio-group ng-model="$ctrl.mode" layout="row" layout-align="center">
-        <md-radio-button ng-repeat="mode in $ctrl.options" ng-value="mode" aria-label="{{mode}}">
+        <md-radio-button 
+          ng-repeat="mode in $ctrl.options" 
+          ng-value="mode" 
+          aria-label="{{mode}}">
           {{mode}}
         </md-radio-button>
       </md-radio-group>
@@ -28,5 +60,24 @@
     </new-round-trip>
     <md-divider></md-divider>
   </div>
-  <md-button class="md-raised md-accent">Log This Trip</md-button>
 </md-content>
+
+<md-sidenav class="md-sidenav-right" md-component-id="addUsers">
+
+  <md-toolbar class="md-theme-light">
+    <h3 class="center-header">Select Travel Companions</h3>
+    <h4 style="margin-top: 20px; text-align: center; ">Select all of your travel companions below. If you don't see your fellow travelers, that means they haven't used this travel tracker app yet. You should remind them to sign up and start logging their trips!</h4>
+  </md-toolbar>
+  <md-content layout="column" layout-align="space-around center">
+    <div ng-repeat="user in $ctrl.users track by $index">
+      <span style="margin-right: 5px;"><b>{{user.email}}</b></span><md-checkbox ng-model="$ctrl.userConfirmations[$index]" aria-label="{{user.email}}"></md-checkbox>
+    </div>
+    <div layout="column" layout-align="space-around center">
+      <md-button ng-click="$ctrl.addUsers()" class="md-raised md-accent">Add Selected Users</md-button>
+      <md-button ng-click="$ctrl.toggleSideNav()" class="md-raised md-warn">
+        Close Sidenav Right
+      </md-button>
+    </div>
+  </md-content>
+
+</md-sidenav>

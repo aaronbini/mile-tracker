@@ -1,5 +1,22 @@
-<md-card class="card-background" layout="row" layout-align="space-around start">
-  <md-card class="inset-background" layout="column" layout-align="space-around center">
+<md-card ng-if="$ctrl.unconfirmed.length > 0" class="card-background" layout="column" layout-align="space-around center">
+  <h3 class="center-header" style="color: crimson;"><b>You've been added as a trip companion!</b></h3>
+  <span style="font-size: 1.25em; text-align: center; line-height: 1.5; margin-bottom: 20px;">Looks like you've been added as a travel companion by one of your fellow employees. Those trips are listed below. Check the box to confirm that you were a part of this trip and then click the button to add the trip. It will automatically be added to your trips, so there's no need to add it separately.</span>
+  <div ng-repeat="unconfirmed in $ctrl.unconfirmed track by $index">
+    <div layout="row" layout-align="center center">
+      <h3 style="margin-bottom: 16px; margin-right: 10px; text-decoration: underline;">
+        {{unconfirmed.departure}} to {{unconfirmed.destination}} 
+        from {{unconfirmed.startDate | date: 'shortDate'}} 
+        to {{unconfirmed.endDate | date: 'shortDate'}}
+      </h3>
+      <md-checkbox ng-model="$ctrl.confirmed[$index]" aria-label="Were you part of this trip?"></md-checkbox>
+    </div>        
+  </div>
+  <md-button class="md-raised md-accent" ng-click="$ctrl.addConfirmations()">Add Selected Trips</md-button>
+</md-card>
+
+<md-card class="card-background" layout="row" layout-align="center stretch">
+    
+  <md-card class="inset-background" layout="column" layout-align="start center">
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total miles you've traveled</h3>
       <h3>By Air: <span style="color: crimson">{{$ctrl.milesTraveled.air | number : 0}}</span></h3>
@@ -12,22 +29,16 @@
       <h3><span style="color: crimson">{{$ctrl.yourEmissions | number : 0}} </span>Tons CO2</h3>
     </div>
   </md-card>
-  <!--<md-divider direction="vertical"></md-divider>-->
-  <md-card class="inset-background" layout="column" layout-align="space-around center">
+  <md-card class="inset-background" layout="column" layout-align="start center">
     <h3 class="center-header">Welcome <span style="color: crimson;">{{$ctrl.user.username}}</span></h3>
-    <!--<h4 style="text-align: center;">Select a trip to view details:</h4>-->
     <md-input-container style="margin-top: 0px;">
       <md-select ng-model="tripId" placeholder="Select A Trip to View Details" ng-change="$ctrl.showDetails(tripId)">
         <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</md-option>
       </md-select>
     </md-input-container>
-    
-    <!--<div ng-repeat="trip in $ctrl.trips track by $index">
-      <a ng-class="['trip-links', {'active-link': $ctrl.current==$index}]" ng-click="$ctrl.current=$index" ui-sref="dashboard.tripDetail({id: trip._id})">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</a>
-    </div>-->
+
   </md-card>
-  <!--<md-divider direction="vertical"></md-divider>-->
-  <md-card class="inset-background" layout="column" layout-align="space-around center">
+  <md-card class="inset-background" layout="column" layout-align="start center">
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total Company Miles</h3>
       <h3>By Air: <span style="color: crimson">{{$ctrl.companyTotals.air | number : 0}}</span></h3>
