@@ -39,7 +39,6 @@ function controller (flightService, $state) {
 
   //submit flights for distance calculation
   this.submitFlights = () => {
-    console.log('new flights: ', this.newFlights);
     let flightPromises = this.newFlights.map(flight => {
       //attach departure and destination cities to totalTrip
       if (flight.departure) {
@@ -55,9 +54,7 @@ function controller (flightService, $state) {
         //need to attach mode and distance to each movement,
         //and add each movement to totalTrip
         array.forEach(flight => {
-          console.log('flight: ', flight);
           let intDistance = parseInt(flightService.cleanDistance(flight.distance), 10);
-          console.log('intDistance: ', intDistance);
           let movement = {mode: 'air', distance: intDistance};
           this.totalTrip.movements.push(movement);
         });

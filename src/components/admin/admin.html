@@ -1,1 +1,54 @@
-<h3>Admin Page</h3>
+<md-card class="card-background" layout="column" layout-align="space-around center">
+  <h1>Admin Page: View Details About Company Wide Travel</h1>
+  <h2>Edit trip details below as well</h2>
+</md-card>
+
+<md-card class="card-background">
+  <h2 class="center-header">Company-Wide Travel Mileage</h2>
+  <div layout="column" layout-align="space-around center">
+    <div class="canvasContain">
+      <canvas id="milesBar"></canvas>
+    </div>
+  </div>
+</md-card>
+<md-card class="card-background">
+  <h2 class="center-header">Company-Wide Travel Emissions (Pounds CO2)</h2>
+  <div layout="column" layout-align="space-around center">
+    <div class="canvasContain">
+      <canvas id="emissionsBar"></canvas>
+    </div>
+  </div>
+</md-card>
+
+<md-card class="card-background" layout="row" layout-align="center stretch">
+  
+  <md-card class="inset-background" layout="column" layout-align="start center">
+    <md-input-container style="margin-top: 0px;">
+      <md-select ng-model="tripId" placeholder="Select A Trip to View Details" ng-change="$ctrl.showDetails(tripId)">
+        <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</md-option>
+      </md-select>
+    </md-input-container>
+
+  </md-card>
+  <md-card class="inset-background" layout="column" layout-align="start center">
+    <div layout="column" layout-align="space-around center">
+      <h3 class="center-header">Total Company Miles</h3>
+      <h3>By Air: <span style="color: crimson">{{$ctrl.companyTotals.air | number : 0}}</span></h3>
+      <h3>By Car: <span style="color: crimson">{{$ctrl.companyTotals.car | number : 0}}</span></h3>
+      <h3>By Bus: <span style="color: crimson">{{$ctrl.companyTotals.bus | number : 0}}</span></h3>
+      <h3>By Train: <span style="color: crimson">{{$ctrl.companyTotals.train | number : 0}}</span></h3>
+    </div>
+  </md-card>
+  <md-card class="inset-background" layout="column" layout-align="start center">
+    <div layout="column" layout-align="space-around center">
+      <h3 class="center-header">Company emissions from travel</h3>
+      <h3>Total:<span style="color: crimson">{{$ctrl.companyEmissions.total | number : 0}} </span>Pounds CO2</h3>
+      <h3>Air:<span style="color: crimson">{{$ctrl.companyEmissions.air | number : 0}} </span>Pounds CO2</h3>
+      <h3>Car:<span style="color: crimson">{{$ctrl.companyEmissions.car | number : 0}} </span>Pounds CO2</h3>
+      <h3>Bus:<span style="color: crimson">{{$ctrl.companyEmissions.bus | number : 0}} </span>Pounds CO2</h3>
+      <h3>Train:<span style="color: crimson">{{$ctrl.companyEmissions.train | number : 0}} </span>Pounds CO2</h3>
+    </div>
+  </md-card>
+</md-card>
+
+<ui-view></ui-view>

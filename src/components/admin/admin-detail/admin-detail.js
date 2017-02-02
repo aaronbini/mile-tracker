@@ -1,4 +1,4 @@
-import template from './trip-detail.html';
+import template from './admin-detail.html';
 
 export default {
   template,

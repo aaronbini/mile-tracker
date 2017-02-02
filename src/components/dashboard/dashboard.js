@@ -31,8 +31,6 @@ function controller (chartService, $state, tripService, $scope) {
       .then(([companyEmissions, soloEmissions]) => {
         this.companyEmissions = companyEmissions.total;
         this.soloEmissions = soloEmissions.total;
-        console.log('companyEmissions: ', this.companyEmissions);
-        console.log('soloEmissions: ', this.soloEmissions);
         $scope.$digest();
       })
       .catch(err => console.log(err));

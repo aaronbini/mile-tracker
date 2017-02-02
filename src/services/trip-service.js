@@ -8,8 +8,9 @@ export default function tripService($http, apiUrl) {
   }
 
   //use default params here to set dates
-  function getAllTrips (startDate = new Date('1987-01-01'), endDate = new Date()) {
-    return $http.get(`${apiUrl}/trips?startDate=${startDate}&endDate=${endDate}`)
+  //startDate = new Date('1987-01-01'), endDate = new Date()
+  function getAllTrips () {
+    return $http.get(`${apiUrl}/trips`)
       .then(result => result.data);
   }
 

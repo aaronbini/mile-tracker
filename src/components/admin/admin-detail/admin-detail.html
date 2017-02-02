@@ -1,0 +1,25 @@
+<md-card class="card-background">
+  <h3 class="center-header">{{$ctrl.trip.departure}} to {{$ctrl.trip.destination}} from {{$ctrl.trip.startDate | date: 'shortDate'}} to {{$ctrl.trip.endDate | date: 'shortDate'}}</h3>
+  <div layout="row" layout-align="center center">
+    <h3 class="mid-header">Trip Total Mileage: <span style="color: crimson; margin-right: 10px;">{{ $ctrl.trip.totalMiles | number: 0}}</span></h3>
+    <h3 class="mid-header">| Emissions (Pounds CO2): <span style="color: crimson;">{{$ctrl.emissions.total | number: 0}}</span></h3>
+  </div>
+  <div layout="column" layout-align="space-around center">
+    <h3 class="mid-header">Travelers:</h3>
+    <div ng-repeat="traveler in $ctrl.trip.users">
+      <h4><span style="color: crimson;">{{traveler.email}}</span></h4>
+    </div>
+  </div>
+  <div layout="column" layout-align="space-around center">
+    <h3 class="mid-header" style="margin-top: 15px;">Sub-Trips:</h3>
+    <div ng-repeat="trip in $ctrl.trip.movements" layout="row" layout-align="center center">
+      <h4 style="line-height: 1.25; margin-right: 8px;">Travel Mode: <span style="color: crimson;">{{trip.mode}} </span></h4>
+      <h4>| Distance Traveled: <span style="color: crimson;">{{trip.distance}}</span></h4>
+    </div>
+  </div>
+  <div layout="column" layout-align="space-around center">
+    <div class="canvasContain">
+      <canvas id="bar"></canvas>
+    </div>
+  </div>
+</md-card>

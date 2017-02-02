@@ -15,7 +15,6 @@ function controller ($mdSidenav) {
   this.styles = styles;
   
   this.$onInit = () => {
-    console.log('users: ', this.users);
 
     this.options = ['Air', 'Ground'];
     this.mode = 'Air';
@@ -39,7 +38,6 @@ function controller ($mdSidenav) {
     for (let i = 0; i < this.users.length; i++) {
       this.userConfirmations[i] = false;
     }
-    console.log(this.userConfirmations);
   };
 
   this.toggleSideNav = () => {
@@ -58,7 +56,6 @@ function controller ($mdSidenav) {
     });
 
     this.totalTrip.users.push(...this.addedUsers);
-    console.log(this.totalTrip);
     this.toggleSideNav();
   };
   
