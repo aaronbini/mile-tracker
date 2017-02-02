@@ -95,8 +95,9 @@ function controller (tripService, $state, distanceService) {
       for (let prop in this.destMovements) {
         let current = this.destMovements[prop];
         if (current.distance !== null) {
+          current.distance = parseInt(current.distance, 10);
           //add mileage to total trip miles
-          this.totalTrip.totalMiles += parseInt(current.distance, 10);
+          this.totalTrip.totalMiles += current.distance;
           //add the subTrip to the movements array
           this.totalTrip.movements.push({mode: current.mode, distance: current.distance});
         }

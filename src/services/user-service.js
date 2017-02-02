@@ -13,6 +13,11 @@ export default function userService(token, $http, apiUrl) {
     return $http.get(`${apiUrl}/users/byID`)
       .then(result => result.data);
   }
+
+  function getAll () {
+    return $http.get(`${apiUrl}/users`)
+      .then(result => result.data);
+  }
     
   function credential(endpoint) {
     return (credentials) => {
@@ -39,6 +44,7 @@ export default function userService(token, $http, apiUrl) {
     },
     signin: credential('signin'),
     signup: credential('signup'),
-    getMe
+    getMe,
+    getAll
   };
 }

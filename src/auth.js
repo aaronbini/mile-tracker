@@ -10,8 +10,7 @@ export default function auth($rootScope, userService, $mdDialog, $state) {
     //   event.preventDefault();
     //   return $state.go('welcome');
     
-    // } else 
-    console.log('toState: ', toState);
+    // } else
 
     if (!(toState.data && toState.data.public) && !userService.isAuthenticated()) {
       event.preventDefault();

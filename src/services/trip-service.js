@@ -23,10 +23,16 @@ export default function tripService($http, apiUrl) {
       .then(result => result.data);
   }
 
-  //mongoose model for trip has departure, destination, startDate, endDate, user
-  //this routes expects a "movements" array to be attached to the body, which
-  //will contain all of the trips associated with the totalTrip, each of these requires
-  //a string specifying mode ['air', 'car', 'bus', 'train']
+  function getUnconfirmed () {
+    return $http.get(`${apiUrl}/trips/unconfirmed`)
+      .then(result => result.data);
+  }
+
+  function confirmTrip (tripId) {
+    return $http.put(`${apiUrl}/trips/addUser/${tripId}`)
+      .then(result => result.data);
+  }
+
   function addTrip (newTrip) {
     return $http.post(`${apiUrl}/trips`, {trip: newTrip})
       .then(result => result.data);
@@ -36,7 +42,9 @@ export default function tripService($http, apiUrl) {
     getMyTrips,
     getOneTrip,
     getAllTrips,
+    getUnconfirmed,
     getCompanyMileage,
+    confirmTrip,
     addTrip
   };
 }
