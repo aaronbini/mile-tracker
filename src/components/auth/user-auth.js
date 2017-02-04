@@ -10,8 +10,8 @@ export default {
       Sign Up
     </label>
   </div>
-  <signin ng-if="$ctrl.action==='signin'" success="$ctrl.success"></signin>
-  <signup ng-if="$ctrl.action==='signup'" success="$ctrl.success"></signup>
+  <signin ng-if="$ctrl.action==='signin'" success="$ctrl.success" cancel="$ctrl.cancel"></signin>
+  <signup ng-if="$ctrl.action==='signup'" success="$ctrl.success" cancel="$ctrl.cancel"></signup>
   `,
   bindings: { 
     success: '<',
