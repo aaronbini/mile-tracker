@@ -5,5 +5,12 @@ export default {
   bindings: {
     user: '<'
   },
-  controller () {}
+  controller
 };
+
+controller.$inject = ['flightService'];
+function controller (flightService) {
+  this.$onInit = () => {
+    flightService.getAll();
+  };
+}

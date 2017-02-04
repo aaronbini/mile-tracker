@@ -10,11 +10,14 @@ export default {
   controller
 };
 
-controller.$inject = ['$mdSidenav'];
-function controller ($mdSidenav) {
+controller.$inject = ['$mdSidenav', 'flightService'];
+function controller ($mdSidenav, flightService) {
   this.styles = styles;
   
   this.$onInit = () => {
+    //get airports, which should be cached in localStorage at this point
+    // flightService.getAll()
+    //   .then(airports => this.airports = airports);
 
     this.options = ['Air', 'Ground'];
     this.mode = 'Air';

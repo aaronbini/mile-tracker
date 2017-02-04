@@ -28,7 +28,7 @@ export default function flightService ($http, apiUrl, $window) {
       .then(response => response.data);
   }
 
-  getAll();
+  // getAll();
 
   return { getAll, getDistance, cleanDistance };
 
