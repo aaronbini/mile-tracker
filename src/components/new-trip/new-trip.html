@@ -66,16 +66,17 @@
 
   <md-toolbar class="md-theme-light">
     <h3 class="center-header">Select Travel Companions</h3>
-    <h4 style="margin-top: 20px; text-align: center; ">Select all of your travel companions below. If you don't see your fellow travelers, that means they haven't used this travel tracker app yet. You should remind them to sign up and start logging their trips!</h4>
+    <md-divider></md-divider>
+    <p style="margin: 20px; text-align: center; font-size: 1.25em; font-weight: 400;">If you don't see your fellow travelers, that means they haven't used this travel tracker app yet. You should remind them to sign up and start logging their trips!</p>
   </md-toolbar>
   <md-content layout="column" layout-align="space-around center">
-    <div ng-repeat="user in $ctrl.users track by $index">
+    <div ng-repeat="user in $ctrl.filteredUsers track by $index" style="margin-top: 10px;">
       <span style="margin-right: 5px;"><b>{{user.email}}</b></span><md-checkbox ng-model="$ctrl.userConfirmations[$index]" aria-label="{{user.email}}"></md-checkbox>
     </div>
     <div layout="column" layout-align="space-around center">
       <md-button ng-click="$ctrl.addUsers()" class="md-raised md-accent">Add Selected Users</md-button>
       <md-button ng-click="$ctrl.toggleSideNav()" class="md-raised md-warn">
-        Close Sidenav Right
+        Cancel
       </md-button>
     </div>
   </md-content>

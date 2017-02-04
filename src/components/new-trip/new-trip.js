@@ -5,7 +5,8 @@ export default {
   template,
   bindings: {
     airports: '<',
-    users: '<'
+    users: '<',
+    user: '<'
   },
   controller
 };
@@ -19,6 +20,7 @@ function controller ($mdSidenav) {
     this.options = ['Air', 'Ground'];
     this.mode = 'Air';
     this.groundMode = 'Car';
+    this.filteredUsers = this.users.filter(user => user._id !== this.user._id);
 
     this.resetTrip = () => {
       this.totalTrip = {
