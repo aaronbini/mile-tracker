@@ -5,8 +5,7 @@ import auth from './auth';
 import http from './http';
 import './scss/main.scss';
 
-// app.constant('apiUrl', process.env.API_URL || '/api');
-app.constant('apiUrl', 'http://localhost:3000/api');
+app.constant('apiUrl', '/api');
 
 app.config(http);
 app.config(routes);
