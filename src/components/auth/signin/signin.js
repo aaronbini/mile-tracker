@@ -20,11 +20,12 @@ function controller(userService) {
   this.authenticate = () => {
     return userService.signin(this.credentials)
       .then(() => {
+        this.error = null;
         this.success();
         return true;
       })
-      .catch(error => {
-        this.error = error;
+      .catch(err => {
+        this.error = err || {message: 'Error Signing In.'};
         this.cancel();
         return false;
       });

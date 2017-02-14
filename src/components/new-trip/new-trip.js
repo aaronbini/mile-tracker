@@ -5,7 +5,8 @@ export default {
   template,
   bindings: {
     airports: '<',
-    users: '<'
+    users: '<',
+    user: '<'
   },
   controller
 };
@@ -15,10 +16,11 @@ function controller ($mdSidenav) {
   this.styles = styles;
   
   this.$onInit = () => {
-
+    
     this.options = ['Air', 'Ground'];
     this.mode = 'Air';
     this.groundMode = 'Car';
+    this.filteredUsers = this.users.filter(user => user._id !== this.user._id);
 
     this.resetTrip = () => {
       this.totalTrip = {
@@ -35,7 +37,7 @@ function controller ($mdSidenav) {
     //array for confirmed users, will be set to true if user confirms
     //that they traveled with other users
     this.userConfirmations = [];
-    for (let i = 0; i < this.users.length; i++) {
+    for (let i = 0; i < this.filteredUsers.length; i++) {
       this.userConfirmations[i] = false;
     }
   };
@@ -47,7 +49,7 @@ function controller ($mdSidenav) {
   //add other users who user traveled with
   this.addUsers = () => {
     this.added = true;
-    this.addedUsers = this.users.filter((user, index) => {
+    this.addedUsers = this.filteredUsers.filter((user, index) => {
       //return user if the user has been confirmed, 
       //then map to array of only ids
       return this.userConfirmations[index];

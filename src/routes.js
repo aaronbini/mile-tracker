@@ -28,7 +28,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
     },
     resolve: {
       airports: ['flightService', flight => flight.getAll()],
-      users: ['userService', user => user.getAll()]
+      users: ['userService', user => user.getAll()],
+      user: ['userService', u => u.getMe()]
     },
     views: {
       header: {

@@ -5,7 +5,7 @@ import auth from './auth';
 import http from './http';
 import './scss/main.scss';
 
-app.constant('apiUrl', process.env.API_URL);
+app.constant('apiUrl', '/api');
 
 app.config(http);
 app.config(routes);
