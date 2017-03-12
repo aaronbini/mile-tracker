@@ -1,15 +1,24 @@
 <md-card class="card-background" layout="column" layout-align="space-around center">
-  <!--<h3 class="center-header">Round-trip miles traveled: <span style="color: crimson">{{$ctrl.totalTrip.totalMiles}}</span></h3>-->
-  <h3 class="center-header" style="line-height: 1.5; margin-left: 20px; margin-right: 20px;"><b>FINAL STEP:</b> Did you travel at all once you got to your destination city? If so, <span style="color: crimson"><i>enter those trip legs here.</i></span> Your round-trip miles have already been logged, so <span style="color: crimson"><i>you do not need to include the return leg of your trip.</i></span> If you don't want to enter individual trip legs, check the box below and enter estimates for miles traveled at your destination city. If you logged no additional miles at your destination city, just click submit to proceed.</h3>
-  <!--<p>Please log miles of all other travel here. Enter individual trips if you traveled to multiple cities. Otherwise, check the box below and estimate mileage at your destination. Just click Submit Trip if you did not log any additional miles at your destination.</p>-->
-  <div layout="row" layout-align="center center">
-    <h3 class="checkbox-text"><i>I'd like to estimate my mileage: </i></h3><md-checkbox ng-model="$ctrl.estimate" aria-label="I'd like to estimate my mileage:"></md-checkbox>
-  </div>
+
+  <h3 class="center-header" style="line-height: 1.5; margin-left: 20px; margin-right: 20px;"><b>FINAL STEP:</b> Did you travel once you got to your destination?</h3>
+
+  <md-radio-group ng-model="$ctrl.selectSubmission">
+    <md-radio-button 
+          style="font-size: 1.25em;"
+          ng-repeat="each in $ctrl.options" 
+          ng-value="each.option" 
+          aria-label="{{each.text}}">
+          {{each.text}}
+        </md-radio-button>
+  </md-radio-group>
+
+<md-button ng-if="$ctrl.selectSubmission === 'none'" class="md-raised md-accent" ng-click="$ctrl.addTotalTrip()" style="margin: 0 auto; margin-bottom: 10px;">Submit Trip</md-button>
+
 </md-card>
 
 <md-card class="card-background" layout="column" layout-align="space-around center">
 
-  <div ng-if="$ctrl.estimate">
+  <div ng-if="$ctrl.selectSubmission === 'estimate'">
     <h3 class="center-header">Select all modes of transportation used at destination:</h3>
 
     <div layout="row" layout-align="center center">
@@ -25,27 +34,29 @@
 
     <form name="miles" ng-submit="miles.$valid && $ctrl.addTotalTrip()" layout="column" layout-align="space-around center">
       <div layout="row" layout-align="center center" ng-if="$ctrl.car">
-        <h3 class="checkbox-text">Miles by Car:</h3>
+        <h3 class="checkbox-text">Estimated Miles by Car:</h3>
         <md-input-container >
           <input name="car" required placeholder="Enter Miles" type="text" ng-model="$ctrl.destMovements.car.distance">
         </md-input-container>
       </div>
       <div layout="row" layout-align="center center" ng-if="$ctrl.bus">
-        <h3 class="checkbox-text">Miles by Bus:</h3>
+        <h3 class="checkbox-text">Estimated Miles by Bus:</h3>
         <md-input-container>
             <input name="bus" required placeholder="Enter Miles" type="text" ng-model="$ctrl.destMovements.bus.distance">
         </md-input-container>
       </div>
       <div layout="row" layout-align="center center" ng-if="$ctrl.train">
-        <h3 class="checkbox-text">Miles by Train:</h3>
+        <h3 class="checkbox-text">Estimated Miles by Train:</h3>
         <md-input-container>
           <input name="train" required placeholder="Enter Miles" type="text" ng-model="$ctrl.destMovements.train.distance">
         </md-input-container>
       </div>
+      <md-button type="submit" class="md-raised md-accent" style="margin: 0 auto; margin-bottom: 10px;">Submit Trip</md-button>
     </form>
+      
   </div>
 
-  <form name="tripLeg" ng-if="!$ctrl.estimate" ng-submit="tripLeg.$valid && $ctrl.addTotalTrip()" layout="column" layout-align="space-around center" style="margin-top: 15px;">
+  <form name="tripLeg" ng-if="$ctrl.selectSubmission === 'individual'" ng-submit="tripLeg.$valid && $ctrl.addTotalTrip()" layout="column" layout-align="space-around center" style="margin-top: 15px;">
     <md-button ng-if="!$ctrl.roundTrip" ng-click="$ctrl.addTripLeg()" class="md-raised md-accent">Add Trip Leg</md-button>
     <div ng-repeat="trip in $ctrl.trips track by $index" class="flex-container-row flex-center">
       <div layout="row" layout-align="space-around center">
@@ -80,9 +91,7 @@
       
       <md-button ng-click="$ctrl.removeTripLeg(trip, $index)" class="md-raised md-warn">Remove Trip Leg</md-button>
     </div>
-    
+      <md-button type="submit" class="md-raised md-accent">Submit Trip</md-button>
   </form>
-
-  <md-button type="submit" class="md-raised md-accent" ng-click="$ctrl.addTotalTrip()">Submit Trip</md-button>
 
 </md-card>

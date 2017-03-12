@@ -17,6 +17,7 @@
 <md-card class="card-background" layout="row" layout-align="center stretch">
     
   <md-card class="inset-background" layout="column" layout-align="start center">
+    <h3 ng-if="$ctrl.showMessage" class="fade">{{$ctrl.successMessage}}</h3>
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total miles you've traveled</h3>
       <h3>By Air: <span style="color: crimson">{{$ctrl.milesTraveled.air | number : 0}}</span></h3>
@@ -33,7 +34,7 @@
     <h3 class="center-header">Welcome <span style="color: crimson;">{{$ctrl.user.username}}</span></h3>
     <md-input-container style="margin-top: 0px;">
       <md-select ng-model="tripId" placeholder="Select A Trip to View Details" ng-change="$ctrl.showDetails(tripId)">
-        <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</md-option>
+        <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">Trip to {{trip.name}} on {{trip.startDate | date: 'shortDate'}}</md-option>
       </md-select>
     </md-input-container>
 

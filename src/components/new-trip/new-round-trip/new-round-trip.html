@@ -1,9 +1,9 @@
 <md-card class="card-background">
   <div layout="row" layout-align="center center">
-    <h3 style="margin-top: 20px; margin-bottom: 10px;"><b>STEP 4:</b><span style="color: crimson;"><i> Add all flights for this trip, including return flights:</i></span></h3>
+    <h3 style="margin-top: 20px; margin-bottom: 10px;"><b>STEP 5:</b><span style="color: crimson;"><i> Add all flights for this trip, including return flights:</i></span></h3>
     <md-button ng-click="$ctrl.addNewFlight()" class="md-raised md-accent">Add Another Flight</md-button>
   </div>
-  <h3 style="margin-top: 15px; margin-bottom: 0px; text-align: center;">Check the box next to your starting city as well as your destination city. This will be used for record-keeping purposes:</h3>
+  <!--<h3 style="margin-top: 15px; margin-bottom: 0px; text-align: center;">Check the box next to your starting city as well as your destination city. This will be used for record-keeping purposes:</h3>-->
   <div layout="column" layout-align="space-around center">
 
     <md-content 
@@ -12,9 +12,9 @@
       layout="row" 
       layout-align-gt-sm="center center"
       layout-margin>
-        <div style="margin-top: 8px; margin-right: 0px;">
+        <!--<div style="margin-top: 8px; margin-right: 0px;">
           <span style="margin-right: 5px;">Starting city?</span><md-checkbox ng-model="new.departure" aria-label="Starting city?"></md-checkbox>
-        </div>          
+        </div>          -->
         <form ng-submit="$event.preventDefault()">
           <md-autocomplete
               md-select-on-match
@@ -48,9 +48,9 @@
           <br/>
         </form>
          <!-- this captures name of final destination city -->
-        <div style="margin-top: 8px; margin-right: 0px;">
+        <!--<div style="margin-top: 8px; margin-right: 0px;">
           <span style="margin-right: 5px;">Destination city?</span><md-checkbox ng-model="new.destination" aria-label="Destination city?"></md-checkbox>
-        </div>
+        </div>-->
         <md-button class="md-raised md-warn" style="margin-bottom: 22px;" ng-click="$ctrl.removeFlight(new, $index)">Remove Flight</md-button>
     
     </md-content>

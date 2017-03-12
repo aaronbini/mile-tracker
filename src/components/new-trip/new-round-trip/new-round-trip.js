@@ -41,12 +41,17 @@ function controller (flightService, $state) {
   this.submitFlights = () => {
     let flightPromises = this.newFlights.map(flight => {
       //attach departure and destination cities to totalTrip
-      if (flight.departure) {
-        this.totalTrip.departure = flight.from.city;
-      }
-      if (flight.destination) {
-        this.totalTrip.destination = flight.to.city;
-      }
+      /**
+       * 
+       * The below will need to be removed when 
+       * switch is made to having user enter departure and destination
+       **/
+      // if (flight.departure) {
+      //   this.totalTrip.departure = flight.from.city;
+      // }
+      // if (flight.destination) {
+      //   this.totalTrip.destination = flight.to.city;
+      // }
       return flightService.getDistance(flight.from.code, flight.to.code);
     });
     Promise.all(flightPromises)

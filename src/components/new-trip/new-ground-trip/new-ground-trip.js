@@ -8,9 +8,28 @@ export default {
   controller
 };
 
-controller.$inject = ['distanceService', '$state'];
-function controller (distanceService, $state) {
+controller.$inject = ['distanceService', 'tripService', '$state'];
+function controller (distanceService, tripService, $state) {
   
+  this.$onInit = () => {
+    this.groundTrips = {
+      car: {
+        distance: null,
+        mode: 'car'
+      },
+      bus: {
+        distance: null,
+        mode: 'bus'
+      },
+      train: {
+        distance: null,
+        mode: 'train'
+      }
+    };
+  };
+
+  this.callMade = false;
+
   this.states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 
     'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 
     'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 
@@ -20,6 +39,13 @@ function controller (distanceService, $state) {
 
   this.groundOptions = [{type: 'car', display: 'Car'}, {type: 'bus', display: 'Bus'}, {type: 'train', display: 'Train'}];
   this.groundMode = 'car';
+
+  this.options = [
+    {option: 'estimate', text: 'I would like to estimate my total mileage.'},
+    {option: 'individual', text: 'I would like to enter the individual trip legs.'}
+  ];
+  
+  this.selectSubmission = 'estimate';
 
   this.resetTrips = () => {
     this.trips = [ {fromCity: '', fromState: '', toCity: '', toState: '' } ];
@@ -38,13 +64,35 @@ function controller (distanceService, $state) {
     ];
   };
 
+  this.submitNewTrip = (trip) => {
+    this.callMade = !this.callMade;
+    tripService.addTrip(trip)
+      .then(trip => {
+        $state.go('dashboard', {newTrip: trip});
+      })
+      .catch(err => console.log(err));
+  };
+
+  this.submitTotalTrip = () => {
+    if (this.selectSubmission === 'estimate') {
+      for (let prop in this.groundTrips) {
+        let current = this.groundTrips[prop];
+        if (current.distance !== null) {
+          current.distance = parseInt(current.distance, 10);
+          this.totalTrip.totalMiles += current.distance;
+          this.totalTrip.movements.push({mode: current.mode, distance: current.distance});
+        }
+      }
+      this.submitNewTrip(this.totalTrip);
+    } else {
+      this.addTripLegs();
+    }
+  };
+
   //submit ground trips
-  //TODO: change to single ground trip
-  this.submitTrips = () => {
+  this.addTripLegs = () => {
+    console.log('adding trip legs');
     let tripQueries = this.trips.map(trip => {
-      //set the departure and destination cities
-      this.totalTrip.departure = trip.fromCity;
-      this.totalTrip.destination = trip.toCity;
       return {from: `${trip.fromCity}+${trip.fromState}`, to: `${trip.toCity}+${trip.toState}`};
     });
     let tripPromises = tripQueries.map(trip => {
@@ -52,24 +100,20 @@ function controller (distanceService, $state) {
     });
     Promise.all(tripPromises)
       .then(array => {
-        //need to attach mode and distance to each movement,
-        //and add each movement to totalTrip
-        //should combine these two array loops
         array.forEach(trip => {
           let distance = trip.rows[0].elements[0].distance.value;
-          //multiply by 2 for round-trip
-          distance = Math.floor(distance / 1000 / 1.609) * 2;
+          distance = Math.floor(distance / 1000 / 1.609);
           let movement = {mode: this.groundMode, distance};
           this.totalTrip.movements.push(movement);
         });
-        this.tripMiles = array.reduce((total, trip) => {
+
+        const tripMiles = array.reduce((total, trip) => {
           let distance = trip.rows[0].elements[0].distance.value;
           distance = Math.floor(distance / 1000 / 1.609);
           return total + distance;
         }, 0);
-        //multiply trip leg by 2 for round-trip mileage
-        this.totalTrip.totalMiles = this.tripMiles * 2;
-        $state.go('tripLegs', {totalTrip: this.totalTrip});
+        this.totalTrip.totalMiles += tripMiles;
+        this.submitNewTrip(this.totalTrip);
       })
       .catch(err => console.log(err));
   };
