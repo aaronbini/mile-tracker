@@ -26,8 +26,8 @@ function controller ($mdSidenav) {
       this.totalTrip = {
         startDate: new Date(),
         endDate: new Date(),
-        departure: null,
-        destination: null,
+        name: '',
+        totalMiles: 0,
         users: [],
         confirmedUsers: [],
         movements: []

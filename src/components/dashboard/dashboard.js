@@ -15,7 +15,13 @@ export default {
 controller.$inject = ['chartService', '$state', 'tripService', '$scope'];
 function controller (chartService, $state, tripService, $scope) {
 
+  this.successMessage = 'Your trip has been successfully added.';
+
   this.$onInit = () => {
+    if (this.newTrip) {
+      this.showSuccessMessage();
+    }
+
     this.companyTotals = this.companyMiles.reduce((accumulator, mode) => {
       accumulator[mode._id] += mode.total;
       return accumulator;
@@ -43,6 +49,13 @@ function controller (chartService, $state, tripService, $scope) {
         return accumulator;
       }, this.milesTraveled);
     });
+  };
+
+  this.showSuccessMessage = () => {
+    this.showMessage = true;
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 3000);
   };
 
   this.addConfirmations = () => {

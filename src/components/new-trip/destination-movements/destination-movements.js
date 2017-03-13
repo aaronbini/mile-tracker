@@ -30,6 +30,13 @@ function controller (tripService, $state, distanceService) {
       }
     };
 
+    this.options = [
+      {option: 'estimate', text: 'Yes, and I would like to estimate my mileage.'},
+      {option: 'individual', text: 'Yes, and I would like to enter the individual trip legs.'},
+      {option: 'none', text: 'No, I would like to submit the trip as is.'}
+    ];
+    this.selectSubmission = 'estimate';
+
     this.groundMode = 'car';
 
     this.states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 
@@ -83,11 +90,9 @@ function controller (tripService, $state, distanceService) {
       .catch(err => console.log(err));
   };
 
-  //submit fully formed new trip from this state and then transition to dashboard
-  //dashboard should reflect newly added trip
   //may not need to send along trip, but could have a success message on dashboard if trip is passed
   this.addTotalTrip = () => {
-    if (this.estimate) {
+    if (this.selectSubmission === 'estimate') {
       for (let prop in this.destMovements) {
         let current = this.destMovements[prop];
         if (current.distance !== null) {
