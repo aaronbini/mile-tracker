@@ -4,7 +4,7 @@
   <div ng-repeat="unconfirmed in $ctrl.unconfirmed track by $index">
     <div layout="row" layout-align="center center">
       <h3 style="margin-bottom: 16px; margin-right: 10px; text-decoration: underline;">
-        {{unconfirmed.departure}} to {{unconfirmed.destination}} 
+        Trip to {{unconfirmed.name}} 
         from {{unconfirmed.startDate | date: 'shortDate'}} 
         to {{unconfirmed.endDate | date: 'shortDate'}}
       </h3>
