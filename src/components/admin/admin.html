@@ -25,7 +25,7 @@
   <md-card class="inset-background" layout="column" layout-align="start center">
     <md-input-container style="margin-top: 0px;">
       <md-select ng-model="tripId" placeholder="Select A Trip to View Details" ng-change="$ctrl.showDetails(tripId)">
-        <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">{{trip.departure}} to {{trip.destination}} on {{trip.startDate | date: 'shortDate'}}</md-option>
+        <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">Trip to {{trip.name}} on {{trip.startDate | date: 'shortDate'}}</md-option>
       </md-select>
     </md-input-container>
 
