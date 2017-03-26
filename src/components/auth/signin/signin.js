@@ -25,9 +25,7 @@ function controller(userService) {
         return true;
       })
       .catch(err => {
-        this.error = err || {message: 'Error Signing In.'};
-        this.cancel();
-        return false;
+        this.error = err.error || 'Error Signing In.';
       });
   };
 };
