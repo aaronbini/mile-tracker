@@ -13,6 +13,7 @@ controller.$inject = ['flightService', '$state'];
 function controller (flightService, $state) {
   
   this.$onInit = () => {
+    this.disabled = false;
     //add display property for displaying in dropdown
     this.airports = this.airports.map(airport => {
       airport.display = `(${airport.code}) ${airport.name}, ${airport.country}`;
@@ -39,24 +40,13 @@ function controller (flightService, $state) {
 
   //submit flights for distance calculation
   this.submitFlights = () => {
+    this.disabled = true;
     let flightPromises = this.newFlights.map(flight => {
-      //attach departure and destination cities to totalTrip
-      /**
-       * 
-       * The below will need to be removed when 
-       * switch is made to having user enter departure and destination
-       **/
-      // if (flight.departure) {
-      //   this.totalTrip.departure = flight.from.city;
-      // }
-      // if (flight.destination) {
-      //   this.totalTrip.destination = flight.to.city;
-      // }
       return flightService.getDistance(flight.from.code, flight.to.code);
     });
     Promise.all(flightPromises)
       .then(array => {
-        //need to attach mode and distance to each movement,
+        //need to attach mode and distance to each movement
         //and add each movement to totalTrip
         array.forEach(flight => {
           let intDistance = parseInt(flightService.cleanDistance(flight.distance), 10);

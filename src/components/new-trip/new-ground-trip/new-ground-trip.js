@@ -12,6 +12,7 @@ controller.$inject = ['distanceService', 'tripService', '$state'];
 function controller (distanceService, tripService, $state) {
   
   this.$onInit = () => {
+    this.disabled = false;
     this.groundTrips = {
       car: {
         distance: null,
@@ -74,6 +75,7 @@ function controller (distanceService, tripService, $state) {
   };
 
   this.submitTotalTrip = () => {
+    this.disabled = true;
     if (this.selectSubmission === 'estimate') {
       for (let prop in this.groundTrips) {
         let current = this.groundTrips[prop];

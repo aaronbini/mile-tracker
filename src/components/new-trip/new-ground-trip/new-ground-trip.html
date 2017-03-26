@@ -63,11 +63,11 @@
       <md-button ng-click="$ctrl.removeTripLeg(trip, $index)" class="md-raised md-warn">Remove Trip Leg</md-button>
     </div>
 
-      <md-button type="submit" class="md-raised md-accent">Submit Ground Trip</md-button>
+      <md-button ng-disabled="$ctrl.disabled" type="submit" class="md-raised md-accent">Submit Ground Trip</md-button>
     
   </form>
 
-  <div layout="row" layout-sm="column" layout-align="space-around" ng-if="$ctrl.callMade">
+  <div layout="row" layout-sm="column" layout-align="space-around" ng-if="$ctrl.disabled">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
 </md-card>
@@ -105,6 +105,12 @@
           <input name="train" required placeholder="Enter Miles" type="text" ng-model="$ctrl.groundTrips.train.distance">
         </md-input-container>
       </div>
-      <md-button type="submit" class="md-raised md-accent" style="margin: 0 auto; margin-bottom: 10px;">Submit Trip</md-button>
+      <md-button type="submit" 
+                 class="md-raised md-accent" 
+                 style="margin: 0 auto; margin-bottom: 10px;"
+                 ng-disabled="$ctrl.disabled">Submit Trip</md-button>
   </form>
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-if="$ctrl.disabled">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
 </md-card>

@@ -12,9 +12,9 @@ controller.$inject = ['tripService', '$state', 'distanceService'];
 function controller (tripService, $state, distanceService) {
 
   this.$onInit = () => {
-    // if (this.totalTrip === null) {
-    //   $state.go('dashboard');
-    // }
+
+    this.disabled = false;
+
     this.destMovements = {
       car: {
         distance: null,
@@ -104,12 +104,15 @@ function controller (tripService, $state, distanceService) {
         }
       }
       this.submitNewTrip(this.totalTrip);
-    } else {
+    } else if (this.selectSubmission === 'individual') {
       this.addDistances();
+    } else {
+      this.submitNewTrip(this.totalTrip);
     }
   };
 
   this.submitNewTrip = (trip) => {
+    this.disabled = true;
     tripService.addTrip(trip)
       .then(trip => {
         $state.go('dashboard', {newTrip: trip});
