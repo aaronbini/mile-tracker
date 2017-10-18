@@ -24,7 +24,7 @@ export default function flightService ($http, apiUrl, $window) {
   }
 
   function getDistance (start, end) {
-    return $http.get(`${apiUrl}/flights/distance?start=${start}&end=${end}`)
+    return $http.get(`${apiUrl}/flights/distance/v2?start=${start}&end=${end}`)
       .then(response => response.data);
   }
 

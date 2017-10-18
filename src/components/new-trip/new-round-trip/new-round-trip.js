@@ -49,14 +49,14 @@ function controller (flightService, $state) {
         //need to attach mode and distance to each movement
         //and add each movement to totalTrip
         array.forEach(flight => {
-          let intDistance = parseInt(flightService.cleanDistance(flight.distance), 10);
-          let movement = {mode: 'air', distance: intDistance};
+          //let intDistance = parseInt(flightService.cleanDistance(flight.distance), 10);
+          let movement = {mode: 'air', distance: flight.distance};
           this.totalTrip.movements.push(movement);
         });
         //sum miles from all trip movements
         const totalMiles = array.reduce((total, flight) => {
-          let intDistance = parseInt(flightService.cleanDistance(flight.distance), 10);
-          return total + intDistance;
+          //let intDistance = parseInt(flightService.cleanDistance(flight.distance), 10);
+          return total + flight.distance;
         }, 0);
         //attach totalMiles to totalTrip
         this.totalTrip.totalMiles = totalMiles;
