@@ -1,5 +1,5 @@
-<h2 style="margin-top: 10px;">Sign In</h2>
-<form name="auth" ng-submit="auth.$valid && $ctrl.authenticate()" layout="column">
+<h2 ng-if="!$ctrl.passwordRequestSuccess" style="margin-top: 10px;">Sign In</h2>
+<form class="dialog-display" ng-if="!$ctrl.passwordRequestSuccess" name="auth" ng-submit="auth.$valid && $ctrl.authenticate()" layout="column">
     <md-input-container>
       <input name="email" required placeholder="Email" type="text" ng-model="$ctrl.credentials.email">
       <div ng-messages="auth.email.$error" role="alert">
@@ -25,5 +25,9 @@
   <md-dialog-actions>
     <md-button ng-click="$ctrl.cancel()">Cancel</md-button>
   </md-dialog-actions>
+  <md-dialog-actions>
+    <md-button ng-click="$ctrl.requestPasswordReset()">Reset Password</md-button>
+  </md-dialog-actions>
 </form>
+<div class="dialog-display-password-reset" ng-if="$ctrl.passwordRequestSuccess">You will receive an email soon with a link that will allow you to reset your password. You will be re-directed to the Welcome page shortly. Thank you!</div>
 <div class="error" ng-if="$ctrl.error">{{$ctrl.error}}</div>

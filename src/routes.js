@@ -1,7 +1,7 @@
 routes.$inject = ['$stateProvider', '$urlRouterProvider']; 
 
 export default function routes($stateProvider, $urlRouterProvider) {
-    
+  
   $stateProvider.state({
     name: 'welcome',
     url: '/',
@@ -23,6 +23,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'newTrip',
     url: '/newTrip',
+    data: { public: false },
     params: {
       airports: null
     },
@@ -44,6 +45,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'tripLegs',
     url: '/tripLegs',
+    data: { public: false },
     params: {
       totalTrip: null,
       airMiles: null
@@ -64,6 +66,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'dashboard',
     url: '/dashboard',
+    data: { public: false },
     params: {
       newTrip: null
     },
@@ -100,7 +103,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'admin',
     url: '/admin',
-    data: { admin: true },
+    data: { admin: true, public: false },
     resolve: {
       trips: ['tripService', trip => trip.getAllTrips()],
       companyMiles: ['tripService', t => t.getCompanyMileage()],
@@ -119,10 +122,25 @@ export default function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state({
     name: 'admin.tripDetail',
     url: '/tripDetail/:id',
+    data: { public: false },
     resolve: {
       tripDetails: ['tripService', '$transition$', (trip, transition) => trip.getOneTrip(transition.params().id)],
     },
     component: 'adminDetail'
+  });
+
+  $stateProvider.state({
+    name: 'reset',
+    url: '/reset/:token',
+    data: { public: true },
+    resolve: {
+      validRequest: ['userService', '$transition$', (u, t) => u.isValidPasswordResetRequest(t.params().token)]
+    },
+    views: {
+      main: {
+        component: 'reset'
+      }
+    }
   });
 
   $urlRouterProvider.otherwise('/');
