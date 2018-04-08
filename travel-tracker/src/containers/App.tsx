@@ -29,7 +29,7 @@ export interface IHandlers {
   onClick: (node, data) => void;
 }
 
-//register all click handlers here
+//register generic click handlers here for simple sync actions?
 let createHandlers = (dispatch: Props['dispatch']) => {
   //generic click handler, passed a string that corresponds to action type
   let onClick = (node, data) => {
@@ -55,6 +55,22 @@ class App extends Component {
   constructor(props: Props) {
     super(props);
     this.handlers = createHandlers(this.props.dispatch);
+  }
+
+  componentDidMount() {
+    //initial app load, get trips for user
+    //set api url in constants
+    console.log('did Mount')
+    const { dispatch } = this.props
+    dispatch(actions.getTrips('http://localhost:8082/api/trips'));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps: ', nextProps);
+    //if (nextProps.selectedSubreddit !== this.props.selectedSubreddit) {
+      //const { dispatch } = nextProps;
+      //dispatch(fetchPostsIfNeeded(selectedSubreddit))
+    //}
   }
 
   handleRefreshClick = e => {

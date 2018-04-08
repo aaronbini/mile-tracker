@@ -2,11 +2,12 @@
 export interface IAppState {
   user?: IUserState;
   allTrips?: IAllTripsState;
-  userTrips?: IUserTrips;
+  userTrips?: any[];
   currentTrip?: ICurrentTripState;
   languageName: string;
   enthusiasmLevel: number;
   testDialogOpen: boolean;
+  loading: boolean;
 }
 
 export interface IUserState {

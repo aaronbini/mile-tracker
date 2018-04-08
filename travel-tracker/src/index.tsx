@@ -1,20 +1,25 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
-import './styles/index.css';
-import App from './containers/App';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { enthusiasm } from './reducers/index';
-import { IAppState } from './types/index';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 
-//TODO: will need to call combineReducers at some point and replace the below 'enthusiasm' once there are more reducers
+import App from './containers/App';
+import './styles/index.css';
+import { rootReducer } from './reducers/index';
+import { IAppState } from './types/index';
+import registerServiceWorker from './registerServiceWorker';
+
+//first param is reducer or reducers (call combineReducers from reducers index.tsx)
 //second param passed to createStore is the persisted or initial state
-const store = createStore<IAppState>(enthusiasm, {
+//third param is middleware that needs to be registered, in this case thunk for dispatching async actions
+const store = createStore<IAppState>(rootReducer, {
   enthusiasmLevel: 1,
   languageName: 'TypeScript',
-  testDialogOpen: false
-});
+  testDialogOpen: false,
+  userTrips: [],
+  loading: false
+}, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>

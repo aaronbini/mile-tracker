@@ -1,10 +1,10 @@
 // src/reducers/index.tsx
 
-import { EnthusiasmAction } from '../actions';
+import { EnthusiasmAction, LoadingAction, ApiAction } from '../actions';
 import { IAppState } from '../types/index';
-import { INCREMENT_ENTHUSIASM, DECREMENT_ENTHUSIASM, OPEN_DIALOG, CLOSE_DIALOG } from '../constants/index';
+import { INCREMENT_ENTHUSIASM, DECREMENT_ENTHUSIASM, OPEN_DIALOG, CLOSE_DIALOG, LOADING, LOADING_COMPLETED, GET_TRIPS_SUCCESS } from '../constants/index';
 //TODO: export multiple methods for updating state or in this file register multiple reducers and then call combineReducers and export that
-export function enthusiasm(state: IAppState, action: EnthusiasmAction): IAppState {
+export function rootReducer(state: IAppState, action: EnthusiasmAction | LoadingAction | ApiAction): IAppState {
   switch (action.type) {
     case INCREMENT_ENTHUSIASM:
       return { ...state, enthusiasmLevel: state.enthusiasmLevel + 1 };
@@ -13,7 +13,13 @@ export function enthusiasm(state: IAppState, action: EnthusiasmAction): IAppStat
     case OPEN_DIALOG:
       return { ...state, testDialogOpen: true };
     case CLOSE_DIALOG:
-      return { ...state, testDialogOpen: false};
+      return { ...state, testDialogOpen: false };
+    case LOADING:
+      return { ...state, loading: true };
+    case LOADING_COMPLETED:
+      return { ...state, loading: false };
+    case GET_TRIPS_SUCCESS:
+      return { ...state, userTrips: action.trips };
   }
   return state;
 }
