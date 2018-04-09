@@ -4,7 +4,8 @@ export default {
   template,
   bindings: {
     success: '<',
-    cancel: '<'
+    cancel: '<',
+    passwordResetRequestSuccess: '<'
   },
   controller
 };
@@ -16,6 +17,7 @@ function controller(userService) {
     password: '',
     token: ''
   };
+  this.passwordRequestSuccess = false;
 
   this.authenticate = () => {
     return userService.signin(this.credentials)
@@ -27,5 +29,16 @@ function controller(userService) {
       .catch(err => {
         this.error = err.error || 'Error Signing In.';
       });
+  };
+
+  this.requestPasswordReset = () => {
+    userService.requestPasswordReset({ email: this.credentials.email })
+      .then(() => {
+        this.error = null;
+        this.passwordRequestSuccess = true;
+        this.showDialogOptions = false;
+        setTimeout(() => this.passwordResetRequestSuccess(), 7000);
+      })
+      .catch(() => this.error = 'Error with the request. Be sure you have entered the correct email above.');
   };
 };

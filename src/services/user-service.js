@@ -18,6 +18,21 @@ export default function userService(token, $http, apiUrl) {
     return $http.get(`${apiUrl}/users`)
       .then(result => result.data);
   }
+
+  function isValidPasswordResetRequest(token) {
+    return $http.get(`${apiUrl}/auth/reset/${token}`)
+      .then(result => result.data);
+  }
+
+  function resetPassword(credentials) {
+    return $http.post(`${apiUrl}/auth/updatePassword`, credentials)
+      .then(result => result.data);
+  }
+
+  function requestPasswordReset(email) {
+    return $http.post(`${apiUrl}/auth/forgot`, email)
+      .then(result => result.data);
+  }
     
   function credential(endpoint) {
     return (credentials) => {
@@ -45,6 +60,9 @@ export default function userService(token, $http, apiUrl) {
     signin: credential('signin'),
     signup: credential('signup'),
     getMe,
-    getAll
+    getAll,
+    isValidPasswordResetRequest,
+    resetPassword,
+    requestPasswordReset
   };
 }

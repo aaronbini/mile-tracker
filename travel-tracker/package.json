@@ -1,0 +1,32 @@
+{
+  "name": "travel-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.0",
+    "@types/prop-types": "^15.5.2",
+    "@types/react": "^16.3.5",
+    "@types/react-dom": "^16.0.4",
+    "react-scripts-ts": "2.14.0",
+    "typescript": "^2.8.1"
+  },
+  "dependencies": {
+    "@types/react-redux": "^5.0.15",
+    "material-ui": "^1.0.0-beta.41",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  }
+}

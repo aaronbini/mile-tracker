@@ -1,0 +1,29 @@
+<md-card class="card-background">
+  <h3 class="center-header">Password Reset</h3>
+  <div ng-if="$ctrl.validRequest.success">
+    <h4 class="center-header">
+      Please enter your email address and your new password below
+    </h4>
+    <div layout-gt-xs="row" layout-align-gt-xs="center center">
+      <form name="resetForm" layout="row" layout-align="space-around center" style="margin-top: 15px;">
+        <md-input-container>
+          <input name="email" required placeholder="Email Address" type="text" ng-model="$ctrl.reset.email" style="width: 300px; margin-bottom: 25px;">
+          <div ng-messages="resetForm.email.$error" role="alert">
+            <div ng-message="required">Email address is required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <input name="newPass" required placeholder="New Password" type="text" ng-model="$ctrl.reset.newPass" style="width: 300px; margin-bottom: 25px;">
+          <div ng-messages="resetForm.newPass.$error" role="alert">
+            <div ng-message="required">A new password is required.</div>
+          </div>
+        </md-input-container>
+        <md-button ng-click="$ctrl.resetPassword()" class="md-raised md-accent">Reset Password</md-button>
+      </form>
+    </div>
+  </div>
+
+  <div ng-if="!$ctrl.validRequest.success">
+    <p>{{$ctrl.validRequest.message}}</p>
+  </div>
+</md-card>
