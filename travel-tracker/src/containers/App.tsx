@@ -1,20 +1,24 @@
 import { Component } from 'react';
 import * as React from 'react';
 import { compose } from 'recompose';
-import '../styles/App.css';
-import * as actions from '../actions';
-import { IAppState } from '../types/index';
 import { connect/*, Dispatch*/ } from 'react-redux';
+
 import Button from 'material-ui/Button';
 import Dialog, {
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
+  // DialogTitle,
+  // DialogContent,
+  // DialogContentText,
   DialogActions,
 } from 'material-ui/Dialog';
-import Typography from 'material-ui/Typography';
+//import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+
+import { IAppState } from '../types/index';
+import * as actions from '../actions';
+import '../styles/App.css';
 import withRoot from '../withRoot';
+import { AppFooter } from '../components/app-footer/AppFooter';
+import { AppHeader } from '../components/app-header/AppHeader';
 
 //this interface can replace component propTypes
 export interface Props {
@@ -91,37 +95,32 @@ class App extends Component {
     const { enthusiasmLevel, name, classes, testDialogOpen } = this.props;
     const { onClick } = this.handlers;
     return (
-      // <AppHeader></AppHeader>
-      <div className="hello">
+      <div className="App">
+        <AppHeader selectedIndex={0}></AppHeader>
         <div className="greeting">
           Hello {name + getExclamationMarks(enthusiasmLevel)}
         </div>
-        <div>
-          <Button onClick={e => onClick(e, 'DECREMENT_ENTHUSIASM')}>-NOT EXCITED</Button>
-          <Button onClick={e => onClick(e, 'INCREMENT_ENTHUSIASM')}>+AM EXCITED</Button>
+        <div className="font-overriding-default">
+          <Button className="font-overriding-default" onClick={e => onClick(e, 'DECREMENT_ENTHUSIASM')}>-NOT EXCITED</Button>
+          <Button className="font-overriding-default" onClick={e => onClick(e, 'INCREMENT_ENTHUSIASM')}>+AM EXCITED</Button>
         </div>
         <div className={classes.root}>
-        <Dialog open={testDialogOpen} onClose={e => onClick(e, 'CLOSE_DIALOG')}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={e => onClick(e, 'CLOSE_DIALOG')}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Typography variant="display1" gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography variant="subheading" gutterBottom>
-          example project
-        </Typography>
-        <Button variant="raised" color="secondary" onClick={e => onClick(e, 'OPEN_DIALOG')}>
-          Open Dialog
-        </Button>
-      </div>
+          <Dialog className="font-overriding-default" open={testDialogOpen} onClose={e => onClick(e, 'CLOSE_DIALOG')}>
+            <h2 className="font-overriding-default">Super Secret Password</h2>
+            <h3 className="font-overriding-default">
+              <p>1-2-3-4-5</p>
+            </h3>
+            <DialogActions>
+              <Button className="font-overriding-default" color="primary" onClick={e => onClick(e, 'CLOSE_DIALOG')}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Button className="font-overriding-default" variant="raised" color="secondary" onClick={e => onClick(e, 'OPEN_DIALOG')}>
+            Open Dialog
+          </Button>
+        </div>
+        <AppFooter />
       </div>
     )
   }
