@@ -12,7 +12,6 @@ export default {
 controller.$inject = ['userService'];
 function controller (userService) {
   this.credentials = {
-    token: '',
     email: '',
     password: ''
   };

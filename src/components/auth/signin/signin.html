@@ -12,12 +12,6 @@
         <div ng-message="required">A password is required.</div>
       </div>
     </md-input-container>
-    <md-input-container>
-      <input name="eeToken" required placeholder="EE Token" type="password" ng-model="$ctrl.credentials.token">
-      <div ng-messages="auth.eeToken.$error" role="alert">
-        <div ng-message="required">A token is required.</div>
-      </div>
-    </md-input-container>
   </md-dialog-content>
   <md-dialog-actions>
     <md-button type="submit">Sign In!</md-button>
