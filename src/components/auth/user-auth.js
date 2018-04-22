@@ -23,6 +23,5 @@ export default {
 
 function controller() {
   this.action = 'signin';
-  this.showDialogOptions = false;
-  console.log('user auth this: ', this);
+  this.showDialogOptions = true;
 }

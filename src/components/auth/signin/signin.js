@@ -14,8 +14,7 @@ controller.$inject = ['userService'];
 function controller(userService) {
   this.credentials = {
     email: '',
-    password: '',
-    token: ''
+    password: ''
   };
   this.passwordRequestSuccess = false;
 

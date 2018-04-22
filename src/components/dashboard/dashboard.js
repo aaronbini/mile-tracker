@@ -1,7 +1,9 @@
 import template from './dashboard.html';
+import styles from './dashboard.scss';
 
 export default {
   template,
+  styles,
   bindings: {
     trips: '<',
     user: '<',
@@ -18,14 +20,10 @@ function controller (chartService, $state, tripService, $scope) {
   this.successMessage = 'Your trip has been successfully added.';
 
   this.$onInit = () => {
+    console.log('user: ', this.user);
     if (this.newTrip) {
       this.showSuccessMessage();
     }
-
-    this.companyTotals = this.companyMiles.reduce((accumulator, mode) => {
-      accumulator[mode._id] += mode.total;
-      return accumulator;
-    }, {car: 0, air: 0, bus: 0, train: 0});
     this.confirmed = [];
     for (let i = 0; i < this.unconfirmed.length; i++) {
       this.confirmed[i] = false;
