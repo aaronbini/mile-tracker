@@ -21,7 +21,7 @@ function controller (chartService) {
 
   this.getModeMiles = () => {
     this.modeMiles = this.trip.movements.reduce((accumulator, movement) => {
-      accumulator[movement.mode] += movement.distance;
+      accumulator[movement.mode] += Math.round(movement.distance);
       return accumulator;
     }, {air: 0, car: 0, bus: 0, train: 0});
   };

@@ -20,10 +20,10 @@
     <h3 ng-if="$ctrl.showMessage" class="fade">{{$ctrl.successMessage}}</h3>
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total miles you've traveled</h3>
-      <h3>By Air: <span style="color: crimson">{{$ctrl.milesTraveled.air | number : 0}}</span></h3>
-      <h3>By Car: <span style="color: crimson">{{$ctrl.milesTraveled.car | number : 0}}</span></h3>
-      <h3>By Bus: <span style="color: crimson">{{$ctrl.milesTraveled.bus | number : 0}}</span></h3>
-      <h3>By Train: <span style="color: crimson">{{$ctrl.milesTraveled.train | number : 0}}</span></h3>
+      <h3>By Air: <span class="aggregate-text">{{$ctrl.milesTraveled.air | number : 0}}</span></h3>
+      <h3>By Car: <span class="aggregate-text">{{$ctrl.milesTraveled.car | number : 0}}</span></h3>
+      <h3>By Bus: <span class="aggregate-text">{{$ctrl.milesTraveled.bus | number : 0}}</span></h3>
+      <h3>By Train: <span class="aggregate-text">{{$ctrl.milesTraveled.train | number : 0}}</span></h3>
     </div>
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total emissions from your travel </h3>
@@ -31,7 +31,7 @@
     </div>
   </md-card>
   <md-card class="inset-background" layout="column" layout-align="start center">
-    <h3 class="center-header">Welcome <span style="color: crimson;">{{$ctrl.user.username}}</span></h3>
+    <h3 class="center-header">Welcome <span class="welcome-text">{{$ctrl.user.username}}</span></h3>
     <md-input-container style="margin-top: 0px;">
       <md-select ng-model="tripId" placeholder="Select A Trip to View Details" ng-change="$ctrl.showDetails(tripId)">
         <md-option ng-value="trip._id" ng-repeat="trip in $ctrl.trips">Trip to {{trip.name}} on {{trip.startDate | date: 'shortDate'}}</md-option>
@@ -42,10 +42,10 @@
   <md-card class="inset-background" layout="column" layout-align="start center">
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total Company Miles</h3>
-      <h3>By Air: <span style="color: crimson">{{$ctrl.companyTotals.air | number : 0}}</span></h3>
-      <h3>By Car: <span style="color: crimson">{{$ctrl.companyTotals.car | number : 0}}</span></h3>
-      <h3>By Bus: <span style="color: crimson">{{$ctrl.companyTotals.bus | number : 0}}</span></h3>
-      <h3>By Train: <span style="color: crimson">{{$ctrl.companyTotals.train | number : 0}}</span></h3>
+      <h3>By Air: <span class="aggregate-text">{{$ctrl.companyMiles.air | number : 0}}</span></h3>
+      <h3>By Car: <span class="aggregate-text">{{$ctrl.companyMiles.car | number : 0}}</span></h3>
+      <h3>By Bus: <span class="aggregate-text">{{$ctrl.companyMiles.bus | number : 0}}</span></h3>
+      <h3>By Train: <span class="aggregate-text">{{$ctrl.companyMiles.train | number : 0}}</span></h3>
     </div>
     <div layout="column" layout-align="space-around center">
       <h3 class="center-header">Total company emissions from travel</h3>

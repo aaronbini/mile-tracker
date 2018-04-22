@@ -13,7 +13,8 @@ controller.$inject = ['userService'];
 function controller (userService) {
   this.credentials = {
     email: '',
-    password: ''
+    password: '',
+    token: ''
   };
 
   this.authenticate = () => {
