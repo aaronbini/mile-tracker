@@ -20,7 +20,6 @@ function controller (chartService, $state, tripService, $scope) {
   this.successMessage = 'Your trip has been successfully added.';
 
   this.$onInit = () => {
-    console.log('user: ', this.user);
     if (this.newTrip) {
       this.showSuccessMessage();
     }

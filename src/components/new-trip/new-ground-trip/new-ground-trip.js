@@ -93,7 +93,6 @@ function controller (distanceService, tripService, $state) {
 
   //submit ground trips
   this.addTripLegs = () => {
-    console.log('adding trip legs');
     let tripQueries = this.trips.map(trip => {
       return {from: `${trip.fromCity}+${trip.fromState}`, to: `${trip.toCity}+${trip.toState}`};
     });

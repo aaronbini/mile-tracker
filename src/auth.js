@@ -15,7 +15,6 @@ export default function auth($rootScope, userService, $mdDialog, $state) {
           controller: ['$scope', function($scope) {
             $scope.success = function(){
               $mdDialog.hide();
-              console.log('toState: ', toState)
               return $state.go(toState.name, toParams);
             };
             $scope.passwordResetRequestSuccess = () => {
