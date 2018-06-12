@@ -21,9 +21,14 @@ export const LOADING_COMPLETED = 'LOADING_COMPLETED';
 export type LOADING_COMPLETED = typeof LOADING_COMPLETED;
 
 //API Actions
-
 export const GET_TRIPS_SUCCESS = 'GET_TRIPS_SUCCESS';
 export type GET_TRIPS_SUCCESS = typeof GET_TRIPS_SUCCESS;
 
 export const HTTP_ERROR = 'HTTP_ERROR';
 export type HTTP_ERROR = typeof HTTP_ERROR;
+
+
+//app constants
+export const appConstants = {
+  apiUrl: 'http://localhost:8082/api'
+};

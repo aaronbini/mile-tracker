@@ -1,51 +1,70 @@
-//Interfaces for State Objects
+//State Interfaces
 export interface IAppState {
-  user?: IUserState;
-  allTrips?: IAllTripsState;
-  userTrips?: any[];
-  currentTrip?: ICurrentTripState;
-  languageName: string;
-  enthusiasmLevel: number;
-  testDialogOpen: boolean;
+  user?: ICurrentUser;
+  allTrips?: ITrip[];
+  userTrips?: ITrip[];
+  currentTrip?: ICurrentTrip;
   loading: boolean;
+  newTrip?: INewTrip;
+
 }
 
-export interface IUserState {
+export interface ICurrentUser {
   userName: string;
   isActive: boolean;
   isAuthenticated: boolean;
   hasUnconfirmedTrips: boolean;
   org: string;
-  role: UserRole; //create separate file for UserRole
+  role: UserRole;
 }
 
+export interface INewTrip {
+  //could be used to check whether user wants to complete trip before navigating away
+  inProgress: boolean;
+  //need a Movement interface
+  movements: any[];
+}
+
+//current trip the user is viewing
+export interface ICurrentTrip {
+  name: string;
+  movements: IMovement[];
+  startDate: Date;
+  endDate: Date;
+}
+
+export interface ITrip {
+  _id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  startDate: Date;
+  endDate: Date;
+  totalMiles: number;
+  users: string[];
+  confirmedUsers: string[];
+}
+
+export interface IMovement {
+  mode: MovementMode;
+  distance: number;
+}
+
+//enums
 export enum UserRole {
   Visitor,
   Member,
   Administrator
 }
 
-export interface INewTripState {
-  inProgress: boolean;
-  movements: any[];
-}
-export interface IUserTrips {
-  trips: any[];
-}
-export interface IAllTripsState {
-  trips: any[];
-}
-//current trip the user is viewing
-export interface ICurrentTripState {
-  name: string;
-  movements: any[];
-  date: Date;
+export enum MovementMode {
+  Car,
+  Train,
+  Bus,
+  Plane
 }
 
-// export interface StoreState {
-//   languageName: string;
-//   enthusiasmLevel: number;
-// }
+
 
 
 
