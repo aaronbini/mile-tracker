@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import App from './containers/App';
 import './styles/index.css';
@@ -14,16 +15,15 @@ import registerServiceWorker from './registerServiceWorker';
 //second param passed to createStore is the persisted or initial state
 //third param is middleware that needs to be registered, in this case thunk for dispatching async actions
 const store = createStore<IAppState>(rootReducer, {
-  enthusiasmLevel: 1,
-  languageName: 'TypeScript',
-  testDialogOpen: false,
   userTrips: [],
-  loading: false
+  loading: false,
 }, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Route path='' component={App} />
+    </Router>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );
