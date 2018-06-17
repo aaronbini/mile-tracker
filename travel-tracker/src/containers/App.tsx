@@ -6,23 +6,31 @@ import * as actions from '../actions';
 import { IAppState } from '../types/index';
 import { connect, Dispatch } from 'react-redux';
 import Button from 'material-ui/Button';
+import { Link } from 'react-router-dom';
+
 // import Dialog, {
 //   DialogTitle,
 //   DialogContent,
 //   DialogContentText,
 //   DialogActions,
 // } from 'material-ui/Dialog';
-import Typography from 'material-ui/Typography';
+//import Typography from 'material-ui/Typography';
+
+import { Signin } from '../components/Signin';
+
 import { withStyles } from 'material-ui/styles';
 import withRoot from '../withRoot';
 
 //this interface can replace component propTypes
 export interface Props {
   userName: string;
+  isAuthenticated: boolean;
   loading: boolean;
   loadingz: boolean;
   classes: any;
   getTrips: () => any;
+  verifyAuth: () => any;
+  login: (creds: any) => any;
   getMoreTrips: () => any;
   genericButton: (action: string) => any;
 }
@@ -55,6 +63,7 @@ class App extends Component<Props, IAppState> {
     //set api url in constants
     console.log('did Mount, props: ', this.props)
     console.log('did mount state: ', this.state);
+    this.props.verifyAuth()
     this.props.getTrips();
   }
 
@@ -63,43 +72,26 @@ class App extends Component<Props, IAppState> {
   }
 
   render() {
-    const { classes, userName, getTrips, getMoreTrips, genericButton/*, loading*/ } = this.props;
+    const { classes, userName, getTrips, getMoreTrips, genericButton, login, isAuthenticated/*, loading*/ } = this.props;
     //const { onClick } = this.handlers;
     const loadingz = true;
     return (
       // <AppHeader></AppHeader>
       <div className="hello">
-      {loadingz &&
-                <div className="loader"></div>}
-        <div className="greeting">
-          Hello {userName}
-        </div>
+        {loadingz &&
+          <div className="loader"></div>}
+        {!isAuthenticated && <Signin login = { creds => login(creds) }/>}
+        {isAuthenticated && <Link to="/dashboard">Dashboard</Link>}
+        {isAuthenticated && <Link to="/newTrip">New Trip</Link>}
+        <div className="greeting">Hello {userName}</div>
+        {/* <PrivateRoute path='/dashboard' component={Dashboard} /> */}
+        {/* <PrivateRoute path='/newTrip' component={NewTrip} /> */}
         <div>
           <Button onClick={e => getTrips()}>-NOT EXCITED</Button>
           <Button onClick={e => getMoreTrips()}>+AM EXCITED</Button>
           <Button onClick={e => genericButton('INCREMENT_ENTHUSIASM')}>Generic</Button>
         </div>
         <div className={classes.root}>
-        {/* <Dialog open={testDialogOpen} onClose={e => onClick(e, 'CLOSE_DIALOG')}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={e => onClick(e, 'CLOSE_DIALOG')}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog> */}
-        <Typography variant="display1" gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography variant="subheading" gutterBottom>
-          example project
-        </Typography>
-        {/* <Button variant="raised" color="secondary" onClick={e => onClick(e, 'OPEN_DIALOG')}>
-          Open Dialog
-        </Button> */}
       </div>
       </div>
     )
@@ -111,13 +103,17 @@ export function mapStateToProps(state: IAppState) {
   console.log('state: ', state);
   return state;
 }
-//TODO: add another method for completed http call
-//This can't be used in this top level component, can be used in function-based child components
+
 export function mapDispatchToProps(dispatch: Dispatch<actions.ApiAction>) {
   return {
+    verifyAuth: () => dispatch(actions.verifyAuth()),
     getTrips: () => dispatch(actions.getTrips()),
     getMoreTrips: () => dispatch(actions.getTrips()),
-    genericButton: (data) => dispatch(actions.nodeClicked(data))
+    genericButton: (data) => dispatch(actions.nodeClicked(data)),
+    login: creds => {
+      console.log('creds in app component: ', creds);
+      dispatch(actions.loginUser(creds))
+    }
   }
 }
 
@@ -129,3 +125,24 @@ const app = compose(
 )(App);
 
 export default withRoot(app);
+
+
+
+
+/* Dialog Code
+<Dialog open={testDialogOpen} onClose={e => onClick(e, 'CLOSE_DIALOG')}>
+  <DialogTitle>Super Secret Password</DialogTitle>
+  <DialogContent>
+    <DialogContentText>1-2-3-4-5</DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button color="primary" onClick={e => onClick(e, 'CLOSE_DIALOG')}>
+      OK
+    </Button>
+  </DialogActions>
+</Dialog>
+
+<Button variant="raised" color="secondary" onClick={e => onClick(e, 'OPEN_DIALOG')}>
+  Open Dialog
+</Button> 
+*/

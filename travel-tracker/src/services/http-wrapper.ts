@@ -12,26 +12,25 @@ export class HttpWrapper {
         if (!response.ok) {
             throw Error(response.statusText);
         }
-        return response;
-      })
-      .then(response => response.json());
+        return response.json();
+      });
   }
 
   post(url: string, body: any) {
     return fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'content-type': 'application/json'
       },
-      body
+      body: JSON.stringify(body)
     })
       .then(response => {
         if (!response.ok) {
             throw Error(response.statusText);
         }
-        return response;
-      })
-      .then(response => response.json());
+        return response.json();
+      });
   }
 
   put(url: string, body: any) {
@@ -46,9 +45,8 @@ export class HttpWrapper {
       if (!response.ok) {
           throw Error(response.statusText);
       }
-      return response;
-    })
-    .then(response => response.json());
+      return response.json();
+    });
   }
 
   delete(url: string) {
@@ -62,8 +60,7 @@ export class HttpWrapper {
       if (!response.ok) {
           throw Error(response.statusText);
       }
-      return response;
-    })
-    .then(response => response.json());
+      return response.json();
+    });
   }
 }

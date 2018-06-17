@@ -6,7 +6,7 @@ export interface IAppState {
   currentTrip?: ICurrentTrip;
   loading: boolean;
   newTrip?: INewTrip;
-
+  isAuthenticated: boolean;
 }
 
 export interface ICurrentUser {

@@ -16,14 +16,24 @@ interface GetTripsSuccess {
   trips: any[];
 }
 
+interface IsAuthenticated {
+  type: constants.IS_AUTHENTICATED;
+  isAuthenticated: boolean;
+}
+
 export type LoadingAction = Loading | LoadingCompleted;
 
-export type ApiAction = GetTripsSuccess;
+export type ApiAction = GetTripsSuccess | IsAuthenticated;
 
 //generic actionCreator for sync click events
 export const nodeClicked = (type): LoadingAction => ({ type })
 
+//TODO: refactor to call this loading, use it as generic loading action
 export const requestTrips = (): LoadingAction => ({
+  type: constants.LOADING
+});
+
+export const loading = (): LoadingAction => ({
   type: constants.LOADING
 });
 
@@ -36,9 +46,34 @@ export const receiveTrips = (trips): ApiAction => ({
   trips,
 });
 
+export const isAuthenticated = (isAuthenticated: boolean) => ({
+  type: constants.IS_AUTHENTICATED,
+  isAuthenticated
+})
+
 export const httpError = () => ({
   type: constants.HTTP_ERROR
 });
+
+export function verifyAuth() {
+  return (dispatch) => {
+    http.get(`${constants.appConstants.apiUrl}/auth/verify`)
+      .then(isVerified => dispatch(isAuthenticated(isVerified.success)))
+      .catch(() => dispatch(httpError()));
+  };
+}
+
+export function loginUser(creds: any) {
+  return (dispatch) => {
+    dispatch(loading());
+    http.post(`${constants.appConstants.apiUrl}/auth/signin`, creds)
+      .then(response => {
+        localStorage.setItem('token', response.token)
+        dispatch(isAuthenticated(true))
+      })
+      .catch(() => dispatch(httpError()));
+  };
+}
 
 //async action creators: redux docs do show these action creators within the actions file
 export function getTrips() {

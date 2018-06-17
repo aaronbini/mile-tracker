@@ -17,6 +17,7 @@ import registerServiceWorker from './registerServiceWorker';
 const store = createStore<IAppState>(rootReducer, {
   userTrips: [],
   loading: false,
+  isAuthenticated: false
 }, applyMiddleware(thunk));
 
 ReactDOM.render(

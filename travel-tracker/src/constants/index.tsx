@@ -24,6 +24,9 @@ export type LOADING_COMPLETED = typeof LOADING_COMPLETED;
 export const GET_TRIPS_SUCCESS = 'GET_TRIPS_SUCCESS';
 export type GET_TRIPS_SUCCESS = typeof GET_TRIPS_SUCCESS;
 
+export const IS_AUTHENTICATED = 'IS_AUTHENTICATED';
+export type IS_AUTHENTICATED = typeof IS_AUTHENTICATED;
+
 export const HTTP_ERROR = 'HTTP_ERROR';
 export type HTTP_ERROR = typeof HTTP_ERROR;
 
